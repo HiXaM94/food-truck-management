@@ -551,17 +551,17 @@ class App {
                 ui.showToast('Automation started successfully!', 'success');
 
                 resultsContent.innerHTML = `
-                    <div style="background: var(--gray-50); padding: 1.5rem; border-radius: var(--radius-lg); text-align: center;">
+                    <div style="background: rgba(30, 35, 50, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 1.5rem; border-radius: var(--radius-lg); text-align: center; border: 1px solid rgba(255, 255, 255, 0.1);">
                         <i class="fas fa-check-circle" style="color: var(--teal); font-size: 3rem; margin-bottom: 1rem;"></i>
-                        <h4 style="color: var(--gray-800); margin-bottom: 0.5rem;">Workflow Active</h4>
-                        <p style="color: var(--gray-600); margin-bottom: 1.5rem;">
+                        <h4 style="color: var(--white); margin-bottom: 0.5rem;">Workflow Active</h4>
+                        <p style="color: var(--gray-300); margin-bottom: 1.5rem;">
                             Your automated lead generation for <strong>"${searchQuery} in ${location}"</strong> has started.
                         </p>
                         
-                        <div style="text-align: left; background: var(--white); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--gray-200); margin-bottom: 1rem;">
-                            <p><strong>Workflow ID:</strong> ${response.data.workflowId}</p>
-                            <p><strong>Status:</strong> <span style="color: var(--primary);">${response.data.status}</span></p>
-                            <p><strong>Estimated Time:</strong> ${response.data.estimatedTime}</p>
+                        <div style="text-align: left; background: rgba(255, 255, 255, 0.05); padding: 1rem; border-radius: var(--radius-md); border: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 1rem;">
+                            <p style="color: var(--white);"><strong>Workflow ID:</strong> ${response.data.workflowId}</p>
+                            <p style="color: var(--white);"><strong>Status:</strong> <span style="color: var(--primary);">${response.data.status}</span></p>
+                            <p style="color: var(--white);"><strong>Estimated Time:</strong> ${response.data.estimatedTime}</p>
                         </div>
                         
                         <div style="display: flex; gap: 0.5rem; justify-content: center;">

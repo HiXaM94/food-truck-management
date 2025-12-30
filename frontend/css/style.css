@@ -88,7 +88,11 @@
     --z-dropdown: 1000;
     --z-sticky: 1020;
     --z-modal: 2000;
-    --z-toast: 3000;
+    /* Glassmorphism Variables */
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    --glass-blur: blur(12px);
 }
 
 /* ============================================
@@ -106,13 +110,41 @@ html {
 
 body {
     font-family: var(--font-primary);
-    font-size: 16px;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)),
+        url('https://images.unsplash.com/photo-1615112229066-261f22491a63?q=80&w=2074&auto=format&fit=crop') no-repeat center center fixed;
+    background-size: cover;
+    color: var(--white);
     line-height: 1.6;
-    color: var(--gray-800);
-    background: var(--gray-50);
+    min-height: 100vh;
     overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Glassmorphism Utilities */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--glass-shadow);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
 }
 
 /* ============================================
@@ -127,7 +159,8 @@ h6 {
     font-family: var(--font-display);
     font-weight: 700;
     line-height: 1.2;
-    color: var(--gray-900);
+    color: var(--white);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 h1 {
@@ -159,13 +192,13 @@ p {
 }
 
 a {
-    color: var(--primary);
+    color: var(--primary-light);
     text-decoration: none;
     transition: color var(--transition-fast);
 }
 
 a:hover {
-    color: var(--primary-dark);
+    color: var(--primary);
 }
 
 /* ============================================
@@ -179,17 +212,19 @@ a:hover {
 }
 
 .gradient-text {
-    background: var(--gradient-sunset);
+    background: var(--gradient-primary);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
 }
 
 .glass-effect {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
 }
 
 /* ============================================
@@ -199,11 +234,11 @@ a:hover {
     position: sticky;
     top: 0;
     z-index: var(--z-sticky);
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(20, 25, 40, 0.6);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--gray-200);
-    box-shadow: var(--shadow-sm);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: var(--shadow-lg);
     transition: all var(--transition-base);
 }
 
@@ -265,11 +300,12 @@ a:hover {
     gap: var(--spacing-sm);
     padding: var(--spacing-sm) var(--spacing-md);
     border-radius: var(--radius-lg);
-    color: var(--gray-600);
+    color: var(--white);
     font-weight: 500;
     transition: all var(--transition-fast);
     position: relative;
     overflow: hidden;
+    opacity: 0.8;
 }
 
 .nav-link::before {
@@ -289,13 +325,15 @@ a:hover {
 }
 
 .nav-link:hover {
-    color: var(--primary);
-    background: rgba(255, 107, 53, 0.05);
+    color: var(--white);
+    background: rgba(255, 255, 255, 0.1);
+    opacity: 1;
 }
 
 .nav-link.active {
-    color: var(--primary);
-    background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(247, 184, 1, 0.1) 100%);
+    color: var(--white);
+    background: rgba(255, 255, 255, 0.15);
+    opacity: 1;
 }
 
 .nav-link.active::before {
@@ -342,7 +380,9 @@ a:hover {
     top: calc(100% + var(--spacing-sm));
     right: 0;
     min-width: 260px;
-    background: var(--white);
+    background: rgba(30, 35, 50, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-2xl);
     padding: var(--spacing-md);
@@ -351,7 +391,7 @@ a:hover {
     transform: translateY(-10px);
     transition: all var(--transition-base);
     z-index: var(--z-dropdown);
-    border: 1px solid var(--gray-200);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .user-menu:hover .user-dropdown {
@@ -366,18 +406,18 @@ a:hover {
 
 .user-name {
     font-weight: 600;
-    color: var(--gray-900);
+    color: var(--white);
     font-size: 1rem;
 }
 
 .user-email {
     font-size: 0.875rem;
-    color: var(--gray-500);
+    color: var(--gray-300);
 }
 
 .dropdown-divider {
     height: 1px;
-    background: var(--gray-200);
+    background: rgba(255, 255, 255, 0.1);
     margin: var(--spacing-sm) 0;
 }
 
@@ -389,7 +429,7 @@ a:hover {
     padding: var(--spacing-sm) var(--spacing-md);
     border: none;
     background: transparent;
-    color: var(--gray-700);
+    color: var(--gray-300);
     font-size: 0.9375rem;
     border-radius: var(--radius-md);
     cursor: pointer;
@@ -397,8 +437,8 @@ a:hover {
 }
 
 .dropdown-item:hover {
-    background: var(--gray-100);
-    color: var(--error);
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--white);
 }
 
 /* ============================================
@@ -452,25 +492,29 @@ a:hover {
 }
 
 .btn-secondary {
-    background: var(--gradient-ocean);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     color: var(--white);
     box-shadow: var(--shadow-md);
 }
 
 .btn-secondary:hover {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-xl), var(--shadow-glow-blue);
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: var(--shadow-xl);
 }
 
 .btn-outline {
     background: transparent;
-    color: var(--primary);
-    border: 2px solid var(--primary);
+    color: var(--white);
+    border: 2px solid var(--white);
 }
 
 .btn-outline:hover {
-    background: var(--primary);
-    color: var(--white);
+    background: var(--white);
+    color: var(--primary);
 }
 
 .btn-block {
@@ -495,44 +539,16 @@ a:hover {
 .hero {
     position: relative;
     padding: var(--spacing-3xl) 0;
-    background: var(--gradient-ocean);
+    background: transparent;
     overflow: hidden;
 }
 
 .hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background:
-        radial-gradient(circle at 20% 50%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(247, 184, 1, 0.1) 0%, transparent 50%);
-    animation: heroGlow 10s ease-in-out infinite;
-}
-
-@keyframes heroGlow {
-
-    0%,
-    100% {
-        opacity: 0.5;
-    }
-
-    50% {
-        opacity: 1;
-    }
+    display: none;
 }
 
 .hero::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-    opacity: 0.3;
+    display: none;
 }
 
 .hero-content {
@@ -550,6 +566,7 @@ a:hover {
     margin-bottom: var(--spacing-lg);
     line-height: 1.1;
     animation: fadeInUp 1s ease-out;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 @keyframes fadeInUp {
@@ -622,7 +639,7 @@ a:hover {
    ============================================ */
 .search-section {
     padding: var(--spacing-2xl) 0;
-    background: var(--white);
+    background: transparent;
     position: relative;
 }
 
@@ -630,11 +647,13 @@ a:hover {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-lg);
-    background: var(--white);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
     padding: var(--spacing-xl);
     border-radius: var(--radius-2xl);
     box-shadow: var(--shadow-xl);
-    border: 1px solid var(--gray-200);
+    border: 1px solid var(--glass-border);
 }
 
 .search-input-wrapper {
@@ -647,25 +666,30 @@ a:hover {
     left: var(--spacing-md);
     top: 50%;
     transform: translateY(-50%);
-    color: var(--gray-400);
+    color: var(--gray-300);
     font-size: 1.25rem;
 }
 
 .search-input-wrapper input {
     width: 100%;
     padding: 1rem 1rem 1rem 3.5rem;
-    border: 2px solid var(--gray-200);
+    border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-xl);
     font-size: 1rem;
     transition: all var(--transition-base);
-    background: var(--gray-50);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--white);
 }
 
 .search-input-wrapper input:focus {
     outline: none;
     border-color: var(--primary);
     box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.1);
-    background: var(--white);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.search-input-wrapper input::placeholder {
+    color: var(--gray-400);
 }
 
 .filter-group {
@@ -678,19 +702,25 @@ a:hover {
     flex: 1;
     min-width: 150px;
     padding: 0.875rem var(--spacing-md);
-    border: 2px solid var(--gray-200);
+    border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-lg);
     font-size: 0.9375rem;
-    background: var(--gray-50);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--white);
     cursor: pointer;
     transition: all var(--transition-base);
+}
+
+.filter-select option {
+    background: var(--gray-900);
+    color: var(--white);
 }
 
 .filter-select:focus {
     outline: none;
     border-color: var(--primary);
     box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.1);
-    background: var(--white);
+    background: rgba(255, 255, 255, 0.1);
 }
 
 /* Import/Export Controls */
@@ -699,7 +729,7 @@ a:hover {
     gap: var(--spacing-md);
     margin-top: var(--spacing-md);
     padding-top: var(--spacing-md);
-    border-top: 1px solid var(--gray-200);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .btn-import,
@@ -729,7 +759,7 @@ a:hover {
 }
 
 .results-count {
-    color: var(--gray-500);
+    color: var(--gray-300);
     font-size: 0.9375rem;
     font-weight: 500;
 }
@@ -743,13 +773,15 @@ a:hover {
 
 /* Food Truck Card - Premium Design */
 .truck-card {
-    background: var(--white);
+    background: rgba(30, 35, 50, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-radius: var(--radius-2xl);
     overflow: hidden;
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-lg);
     transition: all var(--transition-base);
     cursor: pointer;
-    border: 1px solid var(--gray-200);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     position: relative;
 }
 
@@ -763,6 +795,7 @@ a:hover {
     background: var(--gradient-sunset);
     transform: scaleX(0);
     transition: transform var(--transition-base);
+    z-index: 2;
 }
 
 .truck-card:hover::before {
@@ -772,7 +805,8 @@ a:hover {
 .truck-card:hover {
     transform: translateY(-8px);
     box-shadow: var(--shadow-2xl);
-    border-color: var(--primary);
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(40, 45, 60, 0.7);
 }
 
 .truck-image {
@@ -807,6 +841,7 @@ a:hover {
     -webkit-backdrop-filter: blur(10px);
     letter-spacing: 0.5px;
     box-shadow: var(--shadow-md);
+    z-index: 2;
 }
 
 .truck-status.active {
@@ -839,10 +874,10 @@ a:hover {
     width: 44px;
     height: 44px;
     border-radius: var(--radius-full);
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -858,9 +893,13 @@ a:hover {
     box-shadow: var(--shadow-lg);
 }
 
+.favorite-btn:hover i {
+    color: var(--error);
+}
+
 .favorite-btn i {
     font-size: 1.25rem;
-    color: var(--gray-400);
+    color: var(--white);
     transition: all var(--transition-fast);
 }
 
@@ -897,7 +936,7 @@ a:hover {
     font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: var(--spacing-sm);
-    color: var(--gray-900);
+    color: var(--white);
 }
 
 .truck-cuisine {
@@ -931,7 +970,7 @@ a:hover {
 
 .rating-text {
     font-size: 0.875rem;
-    color: var(--gray-600);
+    color: var(--gray-300);
     font-weight: 500;
 }
 
@@ -946,7 +985,7 @@ a:hover {
     display: flex;
     align-items: center;
     gap: var(--spacing-sm);
-    color: var(--gray-600);
+    color: var(--gray-300);
     font-size: 0.9375rem;
 }
 
@@ -959,7 +998,7 @@ a:hover {
     display: flex;
     gap: var(--spacing-sm);
     padding-top: var(--spacing-md);
-    border-top: 1px solid var(--gray-200);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .action-btn {
@@ -974,22 +1013,26 @@ a:hover {
 }
 
 .action-btn-edit {
-    background: var(--info);
+    background: rgba(26, 107, 168, 0.8);
     color: var(--white);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
 }
 
 .action-btn-edit:hover {
-    background: var(--secondary-dark);
+    background: var(--info);
     transform: translateY(-2px);
 }
 
 .action-btn-delete {
-    background: var(--error);
+    background: rgba(255, 107, 107, 0.8);
     color: var(--white);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
 }
 
 .action-btn-delete:hover {
-    background: #E85555;
+    background: var(--error);
     transform: translateY(-2px);
 }
 
@@ -1001,7 +1044,7 @@ a:hover {
     align-items: center;
     justify-content: center;
     padding: var(--spacing-3xl);
-    color: var(--gray-400);
+    color: var(--gray-300);
 }
 
 .loading-spinner i {
@@ -1009,6 +1052,7 @@ a:hover {
     margin-bottom: var(--spacing-md);
     background: var(--gradient-sunset);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -1021,17 +1065,17 @@ a:hover {
 
 .empty-state i {
     font-size: 5rem;
-    color: var(--gray-300);
+    color: rgba(255, 255, 255, 0.1);
     margin-bottom: var(--spacing-lg);
 }
 
 .empty-state h3 {
-    color: var(--gray-600);
+    color: var(--white);
     margin-bottom: var(--spacing-sm);
 }
 
 .empty-state p {
-    color: var(--gray-500);
+    color: var(--gray-400);
 }
 
 /* ============================================
@@ -1048,9 +1092,9 @@ a:hover {
     min-width: 44px;
     height: 44px;
     padding: 0 var(--spacing-md);
-    border: 2px solid var(--gray-200);
-    background: var(--white);
-    color: var(--gray-700);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--white);
     border-radius: var(--radius-lg);
     font-weight: 600;
     cursor: pointer;
@@ -1059,7 +1103,8 @@ a:hover {
 
 .page-btn:hover:not(:disabled) {
     border-color: var(--primary);
-    color: var(--primary);
+    color: var(--white);
+    background: var(--primary);
     transform: translateY(-2px);
 }
 
@@ -1071,8 +1116,9 @@ a:hover {
 }
 
 .page-btn:disabled {
-    opacity: 0.5;
+    opacity: 0.3;
     cursor: not-allowed;
+    background: transparent;
 }
 
 /* ============================================
@@ -1112,18 +1158,20 @@ a:hover {
 }
 
 .page-subtitle {
-    color: var(--gray-600);
+    color: var(--gray-300);
     font-size: 1.125rem;
 }
 
 .form-container {
     max-width: 900px;
     margin: 0 auto;
-    background: var(--white);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
     padding: var(--spacing-2xl);
     border-radius: var(--radius-2xl);
     box-shadow: var(--shadow-xl);
-    border: 1px solid var(--gray-200);
+    border: 1px solid var(--glass-border);
 }
 
 .food-truck-form {
@@ -1149,24 +1197,36 @@ a:hover {
     align-items: center;
     gap: var(--spacing-sm);
     font-weight: 600;
-    color: var(--gray-700);
+    color: var(--white);
     font-size: 0.9375rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .form-group label i {
-    color: var(--primary);
+    color: var(--primary-light);
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
     padding: 0.875rem var(--spacing-md);
-    border: 2px solid var(--gray-200);
+    border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-lg);
     font-size: 1rem;
     font-family: var(--font-primary);
     transition: all var(--transition-base);
-    background: var(--gray-50);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--white);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--gray-400);
+}
+
+.form-group option {
+    background: var(--gray-900);
+    color: var(--white);
 }
 
 .form-group input:focus,
@@ -1175,7 +1235,7 @@ a:hover {
     outline: none;
     border-color: var(--primary);
     box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.1);
-    background: var(--white);
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .form-group.full-width {
@@ -1214,21 +1274,25 @@ a:hover {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .modal-content {
     position: relative;
     width: 90%;
     max-width: 480px;
-    background: var(--white);
+    background: rgba(30, 35, 50, 0.85);
+    /* Darker glass for better text readability */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-radius: var(--radius-2xl);
     box-shadow: var(--shadow-2xl);
     animation: slideUp 0.3s ease-out;
     max-height: 90vh;
     overflow-y: auto;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 @keyframes slideUp {
@@ -1250,19 +1314,20 @@ a:hover {
     width: 36px;
     height: 36px;
     border-radius: var(--radius-full);
-    background: var(--gray-100);
+    background: rgba(255, 255, 255, 0.1);
     border: none;
+    color: var(--white);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: all var(--transition-fast);
-    z-index: 10;
 }
 
+
 .modal-close:hover {
-    background: var(--gray-200);
-    transform: rotate(90deg);
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
 }
 
 .modal-body {
