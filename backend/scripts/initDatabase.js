@@ -14,7 +14,7 @@ async function initDatabase() {
         password: process.env.DB_PASSWORD,
         database: process.env.DB_NAME,
         port: process.env.DB_PORT || 5432,
-        ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+        ssl: (process.env.POSTGRES_URL || process.env.DATABASE_URL) ? { rejectUnauthorized: false } : false
     });
 
     try {
