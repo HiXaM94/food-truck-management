@@ -126,10 +126,18 @@
             <!-- Search & Filters -->
             <div class="search-section">
                 <div class="container">
-                    <div class="search-bar">
-                        <div class="search-input-wrapper">
-                            <i class="fas fa-search"></i>
-                            <input type="text" id="searchInput" placeholder="Search food trucks by name or location...">
+                    <div class="search-container-wrapper">
+                        <div class="search-bar">
+                            <div class="search-input-wrapper">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="searchInput"
+                                    placeholder="Search food trucks by name or location...">
+                            </div>
+
+                            <button class="btn btn-primary" id="searchBtn">
+                                <i class="fas fa-search"></i>
+                                Search
+                            </button>
                         </div>
 
                         <div class="filter-group">
@@ -153,28 +161,19 @@
                                 <option value="inactive">🔴 Inactive</option>
                             </select>
 
-                            <button class="btn btn-primary" id="searchBtn">
-                                <i class="fas fa-filter"></i>
-                                Apply Filters
-                            </button>
-                        </div>
+                            <div class="data-controls"
+                                style="margin: 0; padding: 0; border: none; flex: 1; justify-content: flex-end;">
+                                <button class="btn btn-secondary btn-import" id="importBtn"
+                                    onclick="document.getElementById('importFile').click()">
+                                    <i class="fas fa-file-import"></i> Import
+                                </button>
+                                <input type="file" id="importFile" accept=".json,.csv" style="display: none">
 
-                        <!-- Import/Export Controls -->
-                        <div class="data-controls">
-                            <button class="btn btn-secondary btn-import" id="importBtn">
-                                <i class="fas fa-file-import"></i>
-                                Import Data
-                            </button>
-                            <button class="btn btn-outline btn-export" id="exportCSVBtn">
-                                <i class="fas fa-file-csv"></i>
-                                Export CSV
-                            </button>
-                            <button class="btn btn-outline btn-export" id="exportJSONBtn">
-                                <i class="fas fa-file-code"></i>
-                                Export JSON
-                            </button>
+                                <button class="btn btn-outline" id="exportBtn">
+                                    <i class="fas fa-download"></i> Export
+                                </button>
+                            </div>
                         </div>
-                        <input type="file" id="importFileInput" accept=".csv,.json" style="display: none;">
                     </div>
                 </div>
             </div>
