@@ -119,6 +119,14 @@ class App {
             });
         }
 
+        // Leads form
+        const leadsForm = document.getElementById('leadsForm');
+        if (leadsForm) {
+            leadsForm.addEventListener('submit', (e) => {
+                this.handleLeadsSubmit(e);
+            });
+        }
+
         // Event delegation for dynamic elements
         document.addEventListener('click', (e) => {
             // Favorite button
@@ -503,6 +511,85 @@ class App {
         } catch (error) {
             console.error('Scraper error:', error);
             ui.showToast(error.message || 'Failed to scrape data', 'error');
+        }
+    }
+
+    /**
+     * Handle Lead Generation Submit (N8N)
+     */
+    async handleLeadsSubmit(e) {
+        e.preventDefault();
+
+        const searchQuery = document.getElementById('leadQuery').value;
+        const location = document.getElementById('leadLocation').value;
+        const limit = parseInt(document.getElementById('leadLimit').value);
+        const spreadsheetId = document.getElementById('spreadsheetId').value;
+
+        try {
+            ui.showToast('Starting Lead Generation Automation...', 'info');
+
+            const resultsContainer = document.getElementById('leadsResults');
+            const resultsContent = document.getElementById('leadsStatusContent');
+
+            resultsContainer.style.display = 'block';
+            resultsContent.innerHTML = `
+                <div class="loading-spinner">
+                    <i class="fas fa-cog fa-spin fa-3x" style="color: var(--primary);"></i>
+                    <p style="margin-top: 1rem; font-weight: 500;">Initializing automation...</p>
+                </div>
+            `;
+
+            // Trigger the backend endpoint which calls N8N
+            const response = await api.request('/n8n/trigger-lead-generation', 'POST', {
+                searchQuery,
+                location,
+                limit,
+                spreadsheetId
+            });
+
+            if (response.success) {
+                ui.showToast('Automation started successfully!', 'success');
+
+                resultsContent.innerHTML = `
+                    <div style="background: var(--gray-50); padding: 1.5rem; border-radius: var(--radius-lg); text-align: center;">
+                        <i class="fas fa-check-circle" style="color: var(--teal); font-size: 3rem; margin-bottom: 1rem;"></i>
+                        <h4 style="color: var(--gray-800); margin-bottom: 0.5rem;">Workflow Active</h4>
+                        <p style="color: var(--gray-600); margin-bottom: 1.5rem;">
+                            Your automated lead generation for <strong>"${searchQuery} in ${location}"</strong> has started.
+                        </p>
+                        
+                        <div style="text-align: left; background: var(--white); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--gray-200); margin-bottom: 1rem;">
+                            <p><strong>Workflow ID:</strong> ${response.data.workflowId}</p>
+                            <p><strong>Status:</strong> <span style="color: var(--primary);">${response.data.status}</span></p>
+                            <p><strong>Estimated Time:</strong> ${response.data.estimatedTime}</p>
+                        </div>
+                        
+                        <div style="display: flex; gap: 0.5rem; justify-content: center;">
+                            <button class="btn btn-secondary btn-sm" onclick="ui.showToast('Status check not yet connected to live N8N instance', 'info')">
+                                <i class="fas fa-sync-alt"></i> Refresh Status
+                            </button>
+                            ${spreadsheetId ? `
+                                <a href="https://docs.google.com/spreadsheets/d/${spreadsheetId}" target="_blank" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-external-link-alt"></i> Open Google Sheet
+                                </a>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            } else {
+                throw new Error(response.message || 'Failed to start automation');
+            }
+
+        } catch (error) {
+            console.error('Lead generation error:', error);
+            ui.showToast(error.message, 'error');
+
+            document.getElementById('leadsStatusContent').innerHTML = `
+                <div style="text-align: center; color: var(--coral);">
+                    <i class="fas fa-exclamation-triangle fa-2x"></i>
+                    <p style="margin-top: 0.5rem;">Error: ${error.message}</p>
+                </div>
+            `;
         }
     }
 }

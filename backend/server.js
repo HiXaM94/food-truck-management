@@ -23,11 +23,13 @@ const authRoutes = require('./routes/authRoutes');
 const foodTruckRoutes = require('./routes/foodTruckRoutes');
 const favoritesRoutes = require('./routes/favoritesRoutes');
 const scraperRoutes = require('./routes/scraperRoutes');
+const n8nRoutes = require('./routes/n8nRoutes');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/foodtrucks', foodTruckRoutes);
 app.use('/api/favorites', favoritesRoutes);
 app.use('/api/scraper', scraperRoutes);
+app.use('/api/n8n', n8nRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

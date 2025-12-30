@@ -18,7 +18,7 @@
     --accent-dark: #D99F00;
     --teal: #1A936F;
     --coral: #FF6B6B;
-    
+
     /* Gradients - Unique & Vibrant */
     --gradient-primary: linear-gradient(135deg, #FF6B35 0%, #F7B801 100%);
     --gradient-secondary: linear-gradient(135deg, #004E89 0%, #1A936F 100%);
@@ -26,7 +26,7 @@
     --gradient-ocean: linear-gradient(135deg, #004E89 0%, #1A6BA8 50%, #1A936F 100%);
     --gradient-dark: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
     --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-    
+
     /* Neutral Colors */
     --white: #ffffff;
     --gray-50: #F8F9FA;
@@ -40,17 +40,17 @@
     --gray-800: #212529;
     --gray-900: #1A1D21;
     --black: #000000;
-    
+
     /* Semantic Colors */
     --success: #1A936F;
     --warning: #F7B801;
     --error: #FF6B6B;
     --info: #1A6BA8;
-    
+
     /* Typography */
     --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    
+
     /* Spacing */
     --spacing-xs: 0.25rem;
     --spacing-sm: 0.5rem;
@@ -59,7 +59,7 @@
     --spacing-xl: 2rem;
     --spacing-2xl: 3rem;
     --spacing-3xl: 4rem;
-    
+
     /* Border Radius */
     --radius-sm: 0.375rem;
     --radius-md: 0.5rem;
@@ -67,7 +67,7 @@
     --radius-xl: 1rem;
     --radius-2xl: 1.5rem;
     --radius-full: 9999px;
-    
+
     /* Shadows */
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -77,13 +77,13 @@
     --shadow-glow-orange: 0 0 30px rgba(255, 107, 53, 0.4);
     --shadow-glow-blue: 0 0 30px rgba(0, 78, 137, 0.4);
     --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
-    
+
     /* Transitions */
     --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
     --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
     --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    
+
     /* Z-index */
     --z-dropdown: 1000;
     --z-sticky: 1020;
@@ -118,19 +118,41 @@ body {
 /* ============================================
    TYPOGRAPHY
    ============================================ */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: var(--font-display);
     font-weight: 700;
     line-height: 1.2;
     color: var(--gray-900);
 }
 
-h1 { font-size: 3rem; }
-h2 { font-size: 2.25rem; }
-h3 { font-size: 1.875rem; }
-h4 { font-size: 1.5rem; }
-h5 { font-size: 1.25rem; }
-h6 { font-size: 1rem; }
+h1 {
+    font-size: 3rem;
+}
+
+h2 {
+    font-size: 2.25rem;
+}
+
+h3 {
+    font-size: 1.875rem;
+}
+
+h4 {
+    font-size: 1.5rem;
+}
+
+h5 {
+    font-size: 1.25rem;
+}
+
+h6 {
+    font-size: 1rem;
+}
 
 p {
     margin-bottom: var(--spacing-md);
@@ -221,8 +243,15 @@ a:hover {
 }
 
 @keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
 }
 
 .nav-menu {
@@ -477,15 +506,22 @@ a:hover {
     left: 0;
     right: 0;
     bottom: 0;
-    background: 
+    background:
         radial-gradient(circle at 20% 50%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
         radial-gradient(circle at 80% 80%, rgba(247, 184, 1, 0.1) 0%, transparent 50%);
     animation: heroGlow 10s ease-in-out infinite;
 }
 
 @keyframes heroGlow {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 1; }
+
+    0%,
+    100% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1;
+    }
 }
 
 .hero::after {
@@ -521,6 +557,7 @@ a:hover {
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -536,8 +573,15 @@ a:hover {
 }
 
 @keyframes shimmer {
-    0%, 100% { filter: brightness(1); }
-    50% { filter: brightness(1.3); }
+
+    0%,
+    100% {
+        filter: brightness(1);
+    }
+
+    50% {
+        filter: brightness(1.3);
+    }
 }
 
 .hero-subtitle {
@@ -658,7 +702,8 @@ a:hover {
     border-top: 1px solid var(--gray-200);
 }
 
-.btn-import, .btn-export {
+.btn-import,
+.btn-export {
     flex: 1;
 }
 
@@ -771,8 +816,15 @@ a:hover {
 }
 
 @keyframes pulse-active {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(26, 147, 111, 0.7); }
-    50% { box-shadow: 0 0 0 10px rgba(26, 147, 111, 0); }
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(26, 147, 111, 0.7);
+    }
+
+    50% {
+        box-shadow: 0 0 0 10px rgba(26, 147, 111, 0);
+    }
 }
 
 .truck-status.inactive {
@@ -818,9 +870,19 @@ a:hover {
 }
 
 @keyframes heartBeat {
-    0%, 100% { transform: scale(1); }
-    25% { transform: scale(1.3); }
-    50% { transform: scale(1.1); }
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    25% {
+        transform: scale(1.3);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
 }
 
 .truck-content {
@@ -1026,8 +1088,13 @@ a:hover {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .page-header {
@@ -1169,6 +1236,7 @@ a:hover {
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -1299,34 +1367,430 @@ a:hover {
 /* ============================================
    RESPONSIVE DESIGN
    ============================================ */
-@media (max-width: 768px) {
-    .hero-title {
-        font-size: 2.5rem;
+
+/* iOS/Safari Specific Fixes */
+@supports (-webkit-touch-callout: none) {
+
+    /* Fix for iOS Safari bottom bar */
+    body {
+        min-height: -webkit-fill-available;
     }
-    
-    .trucks-grid {
-        grid-template-columns: 1fr;
+
+    /* Fix for iOS input zoom */
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    input[type="url"],
+    select,
+    textarea {
+        font-size: 16px !important;
+        /* Prevents zoom on iOS */
     }
-    
-    .form-grid {
-        grid-template-columns: 1fr;
+
+    /* Fix for iOS button styling */
+    button,
+    .btn {
+        -webkit-appearance: none;
+        -webkit-tap-highlight-color: transparent;
     }
-    
-    .nav-menu {
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+
+    /* Larger touch targets for mobile */
+    .btn,
+    .nav-link,
+    .favorite-btn,
+    .action-btn {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    /* Remove hover effects on touch devices */
+    .truck-card:hover {
+        transform: none;
+    }
+
+    .btn:hover::before {
         display: none;
     }
-    
+}
+
+/* Tablet Landscape (1024px and below) */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 var(--spacing-md);
+    }
+
+    .trucks-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-lg);
+    }
+
+    .hero-title {
+        font-size: 3rem;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-sm);
+    }
+}
+
+/* Tablet Portrait (768px and below) */
+@media (max-width: 768px) {
+
+    /* Typography */
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+        line-height: 1.2;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    /* Navigation */
+    .nav-content {
+        padding: var(--spacing-sm) 0;
+    }
+
+    .nav-brand {
+        font-size: 1.25rem;
+    }
+
+    .nav-brand i {
+        font-size: 1.5rem;
+    }
+
+    .nav-menu {
+        display: none;
+        /* Hide desktop menu on mobile */
+    }
+
+    .nav-actions {
+        gap: var(--spacing-sm);
+    }
+
+    .auth-buttons {
+        flex-direction: row;
+        gap: var(--spacing-xs);
+    }
+
+    .auth-buttons .btn {
+        padding: 0.5rem 0.875rem;
+        font-size: 0.875rem;
+    }
+
+    /* Hero Section */
+    .hero {
+        padding: var(--spacing-2xl) 0;
+    }
+
     .hero-stats {
         flex-direction: column;
         gap: var(--spacing-lg);
     }
-    
+
+    .stat-number {
+        font-size: 2rem;
+    }
+
+    /* Search Section */
+    .search-section {
+        padding: var(--spacing-lg) 0;
+    }
+
+    .search-bar {
+        padding: var(--spacing-lg);
+    }
+
     .filter-group {
         flex-direction: column;
     }
-    
+
+    .filter-select {
+        width: 100%;
+    }
+
     .data-controls {
         flex-direction: column;
+    }
+
+    /* Trucks Grid */
+    .trucks-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+    }
+
+    .truck-card {
+        max-width: 100%;
+    }
+
+    /* Forms */
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-container {
+        padding: var(--spacing-lg);
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .form-actions .btn {
+        width: 100%;
+    }
+
+    /* Modal */
+    .modal-content {
+        width: 95%;
+        margin: var(--spacing-md);
+    }
+
+    .modal-body {
+        padding: var(--spacing-lg);
+    }
+
+    /* Pagination */
+    .pagination {
+        flex-wrap: wrap;
+        gap: var(--spacing-xs);
+    }
+
+    .page-btn {
+        min-width: 36px;
+        height: 36px;
+        padding: 0 var(--spacing-sm);
+        font-size: 0.875rem;
+    }
+}
+
+/* Mobile Landscape (640px and below) */
+@media (max-width: 640px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .search-input-wrapper input {
+        font-size: 0.9375rem;
+    }
+
+    .truck-name {
+        font-size: 1.25rem;
+    }
+}
+
+/* Small Mobile (480px and below) */
+@media (max-width: 480px) {
+
+    /* Container */
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
+
+    /* Typography */
+    .hero-title {
+        font-size: 1.75rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.9375rem;
+    }
+
+    /* Navigation */
+    .nav-brand span {
+        font-size: 1rem;
+    }
+
+    .auth-buttons .btn {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8125rem;
+    }
+
+    .user-avatar {
+        width: 36px;
+        height: 36px;
+    }
+
+    /* Hero */
+    .hero {
+        padding: var(--spacing-xl) 0;
+    }
+
+    .stat-number {
+        font-size: 1.75rem;
+    }
+
+    .stat-label {
+        font-size: 0.75rem;
+    }
+
+    /* Search */
+    .search-bar {
+        padding: var(--spacing-md);
+    }
+
+    .search-input-wrapper input {
+        padding: 0.875rem 0.875rem 0.875rem 2.75rem;
+        font-size: 0.875rem;
+    }
+
+    .search-input-wrapper i {
+        left: 0.875rem;
+        font-size: 1rem;
+    }
+
+    /* Buttons */
+    .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+    }
+
+    /* Cards */
+    .truck-image {
+        height: 200px;
+    }
+
+    .truck-content {
+        padding: var(--spacing-md);
+    }
+
+    .truck-name {
+        font-size: 1.125rem;
+    }
+
+    .truck-cuisine {
+        font-size: 0.6875rem;
+        padding: 0.25rem 0.625rem;
+    }
+
+    .info-item {
+        font-size: 0.875rem;
+    }
+
+    /* Forms */
+    .form-container {
+        padding: var(--spacing-md);
+    }
+
+    .page-header {
+        padding-top: var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .page-title {
+        font-size: 1.5rem;
+    }
+
+    .page-subtitle {
+        font-size: 0.9375rem;
+    }
+}
+
+/* Extra Small Mobile (360px and below) */
+@media (max-width: 360px) {
+    .hero-title {
+        font-size: 1.5rem;
+    }
+
+    .nav-brand {
+        font-size: 1rem;
+    }
+
+    .stat-number {
+        font-size: 1.5rem;
+    }
+
+    .truck-image {
+        height: 180px;
+    }
+}
+
+/* Landscape Orientation Fixes */
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero {
+        padding: var(--spacing-lg) 0;
+    }
+
+    .modal-content {
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .hero-stats {
+        flex-direction: row;
+        gap: var(--spacing-md);
+    }
+}
+
+/* High DPI Displays */
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+
+    /* Sharper borders and shadows */
+    .truck-card,
+    .btn,
+    .form-container {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+/* Dark Mode Support (for future) */
+@media (prefers-color-scheme: dark) {
+    /* Dark mode styles can be added here */
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Print Styles */
+@media print {
+
+    .navbar,
+    .search-section,
+    .pagination,
+    .btn,
+    .favorite-btn,
+    .action-btn {
+        display: none !important;
+    }
+
+    .truck-card {
+        page-break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid var(--gray-300);
     }
 }
 
@@ -1351,6 +1815,14 @@ a:hover {
     background: var(--gradient-ocean);
 }
 
+/* Mobile Scrollbar (thinner) */
+@media (max-width: 768px) {
+    ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+}
+
 /* ============================================
    SELECTION STYLING
    ============================================ */
@@ -1362,4 +1834,29 @@ a:hover {
 ::-moz-selection {
     background: var(--primary);
     color: var(--white);
+}
+
+/* ============================================
+   ACCESSIBILITY IMPROVEMENTS
+   ============================================ */
+/* Focus visible for keyboard navigation */
+:focus-visible {
+    outline: 3px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* Skip to main content link */
+.skip-to-main {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--primary);
+    color: var(--white);
+    padding: 8px;
+    text-decoration: none;
+    z-index: 100;
+}
+
+.skip-to-main:focus {
+    top: 0;
 }

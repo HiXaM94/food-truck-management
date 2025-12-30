@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Discover and manage the best food trucks in your city. Browse burgers, tacos, desserts, and more from local street food vendors.">
+    <meta name="description"
+        content="Discover and manage the best food trucks in your city. Browse burgers, tacos, desserts, and more from local street food vendors.">
     <meta name="keywords" content="food trucks, street food, burgers, tacos, desserts, local food">
     <title>FoodTruck Finder - Discover Local Street Food</title>
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
+
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
@@ -27,7 +32,7 @@
                     <i class="fas fa-truck-monster"></i>
                     <span>FoodTruck<strong>Finder</strong></span>
                 </div>
-                
+
                 <div class="nav-menu" id="navMenu">
                     <a href="#" class="nav-link active" data-page="home">
                         <i class="fas fa-home"></i>
@@ -45,8 +50,12 @@
                         <i class="fas fa-map-marked-alt"></i>
                         <span>Maps Scraper</span>
                     </a>
+                    <a href="#" class="nav-link auth-required" data-page="leads" style="display: none;">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Lead Generation</span>
+                    </a>
                 </div>
-                
+
                 <div class="nav-actions">
                     <div class="auth-buttons" id="authButtons">
                         <button class="btn btn-outline" id="loginBtn">
@@ -58,7 +67,7 @@
                             Register
                         </button>
                     </div>
-                    
+
                     <div class="user-menu" id="userMenu" style="display: none;">
                         <div class="user-avatar" id="userAvatar">
                             <i class="fas fa-user"></i>
@@ -122,7 +131,7 @@
                             <i class="fas fa-search"></i>
                             <input type="text" id="searchInput" placeholder="Search food trucks by name or location...">
                         </div>
-                        
+
                         <div class="filter-group">
                             <select id="cuisineFilter" class="filter-select">
                                 <option value="">All Cuisines</option>
@@ -137,13 +146,13 @@
                                 <option value="french">🥖 French</option>
                                 <option value="other">🍽️ Other</option>
                             </select>
-                            
+
                             <select id="statusFilter" class="filter-select">
                                 <option value="">All Status</option>
                                 <option value="active">🟢 Active</option>
                                 <option value="inactive">🔴 Inactive</option>
                             </select>
-                            
+
                             <button class="btn btn-primary" id="searchBtn">
                                 <i class="fas fa-filter"></i>
                                 Apply Filters
@@ -177,7 +186,7 @@
                         <h2 class="section-title">Featured Food Trucks</h2>
                         <div class="results-count" id="resultsCount">Loading...</div>
                     </div>
-                    
+
                     <div class="trucks-grid" id="trucksGrid">
                         <!-- Food truck cards will be inserted here by JavaScript -->
                         <div class="loading-spinner">
@@ -185,7 +194,7 @@
                             <p>Loading food trucks...</p>
                         </div>
                     </div>
-                    
+
                     <!-- Pagination -->
                     <div class="pagination" id="pagination"></div>
                 </div>
@@ -202,7 +211,7 @@
                     </h1>
                     <p class="page-subtitle">Your saved food trucks collection</p>
                 </div>
-                
+
                 <div class="trucks-grid" id="favoritesGrid">
                     <div class="loading-spinner">
                         <i class="fas fa-spinner fa-spin"></i>
@@ -221,11 +230,11 @@
                         Add New Food Truck
                     </h1>
                 </div>
-                
+
                 <div class="form-container">
                     <form id="foodTruckForm" class="food-truck-form">
                         <input type="hidden" id="truckId">
-                        
+
                         <div class="form-grid">
                             <div class="form-group">
                                 <label for="truckName">
@@ -234,7 +243,7 @@
                                 </label>
                                 <input type="text" id="truckName" required placeholder="e.g., Burger Paradise">
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="truckCuisine">
                                     <i class="fas fa-utensils"></i>
@@ -254,7 +263,7 @@
                                     <option value="other">🍽️ Other</option>
                                 </select>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="truckCity">
                                     <i class="fas fa-city"></i>
@@ -262,7 +271,7 @@
                                 </label>
                                 <input type="text" id="truckCity" required placeholder="e.g., Paris">
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="truckLocation">
                                     <i class="fas fa-map-marker-alt"></i>
@@ -270,7 +279,7 @@
                                 </label>
                                 <input type="text" id="truckLocation" placeholder="e.g., Place de la République">
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="truckPrice">
                                     <i class="fas fa-euro-sign"></i>
@@ -278,7 +287,7 @@
                                 </label>
                                 <input type="number" id="truckPrice" step="0.01" min="0" placeholder="e.g., 12.50">
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="truckHours">
                                     <i class="fas fa-clock"></i>
@@ -286,7 +295,7 @@
                                 </label>
                                 <input type="text" id="truckHours" placeholder="e.g., Mon-Sat: 11AM-10PM">
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="truckStatus">
                                     <i class="fas fa-toggle-on"></i>
@@ -297,7 +306,7 @@
                                     <option value="inactive">🔴 Inactive</option>
                                 </select>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="truckImage">
                                     <i class="fas fa-image"></i>
@@ -306,15 +315,16 @@
                                 <input type="url" id="truckImage" placeholder="https://example.com/image.jpg">
                             </div>
                         </div>
-                        
+
                         <div class="form-group full-width">
                             <label for="truckMenu">
                                 <i class="fas fa-list"></i>
                                 Menu (JSON format or text)
                             </label>
-                            <textarea id="truckMenu" rows="4" placeholder='{"items": ["Classic Burger", "Cheese Burger", "Fries"]}'></textarea>
+                            <textarea id="truckMenu" rows="4"
+                                placeholder='{"items": ["Classic Burger", "Cheese Burger", "Fries"]}'></textarea>
                         </div>
-                        
+
                         <div class="form-actions">
                             <button type="button" class="btn btn-outline" id="cancelFormBtn">
                                 <i class="fas fa-times"></i>
@@ -340,7 +350,7 @@
                     </h1>
                     <p class="page-subtitle">Extract food truck data from Google Maps</p>
                 </div>
-                
+
                 <div class="form-container">
                     <form id="scraperForm" class="food-truck-form">
                         <div class="form-group full-width">
@@ -350,10 +360,11 @@
                             </label>
                             <input type="text" id="scraperQuery" required placeholder="e.g., food trucks in Paris">
                             <small style="color: var(--gray-500); margin-top: 0.5rem; display: block;">
-                                Enter a search query like "food trucks in [city]" or "street food vendors near [location]"
+                                Enter a search query like "food trucks in [city]" or "street food vendors near
+                                [location]"
                             </small>
                         </div>
-                        
+
                         <div class="form-grid">
                             <div class="form-group">
                                 <label for="scraperLimit">
@@ -362,7 +373,7 @@
                                 </label>
                                 <input type="number" id="scraperLimit" min="1" max="50" value="10" placeholder="10">
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="scraperRadius">
                                     <i class="fas fa-map-pin"></i>
@@ -371,7 +382,7 @@
                                 <input type="number" id="scraperRadius" min="1" max="50" value="5" placeholder="5">
                             </div>
                         </div>
-                        
+
                         <div class="form-actions">
                             <button type="submit" class="btn btn-primary btn-block">
                                 <i class="fas fa-download"></i>
@@ -379,7 +390,7 @@
                             </button>
                         </div>
                     </form>
-                    
+
                     <div id="scraperResults" style="margin-top: 2rem; display: none;">
                         <h3 style="margin-bottom: 1rem;">Scraping Results</h3>
                         <div id="scraperResultsContent"></div>
@@ -389,6 +400,89 @@
         </section>
     </main>
 
+    <!-- Lead Generation Page -->
+    <section id="leadsPage" class="page">
+        <div class="page-header">
+            <h2 class="page-title">
+                <i class="fas fa-chart-line"></i>
+                Lead Generation (N8N)
+            </h2>
+            <p class="page-subtitle">Automated lead generation automated by N8N & Google Sheets</p>
+        </div>
+
+        <div class="form-container">
+            <form id="leadsForm" class="food-truck-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="leadQuery">
+                            <i class="fas fa-search"></i>
+                            Business Type / Keyword
+                        </label>
+                        <input type="text" id="leadQuery" placeholder="e.g. Food Trucks, Catering, Restaurants"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="leadLocation">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Target Location
+                        </label>
+                        <input type="text" id="leadLocation" placeholder="e.g. New York, Paris, London" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="leadLimit">
+                        <i class="fas fa-list-ol"></i>
+                        Number of Leads
+                    </label>
+                    <select id="leadLimit">
+                        <option value="10">10 Leads</option>
+                        <option value="20" selected>20 Leads</option>
+                        <option value="50">50 Leads</option>
+                        <option value="100">100 Leads (Premium)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="spreadsheetId">
+                        <i class="fas fa-file-excel"></i>
+                        Google Sheet ID (Optional)
+                    </label>
+                    <input type="text" id="spreadsheetId" placeholder="Leave empty to use default sheet">
+                    <small style="color: var(--gray-500); margin-top: 0.25rem;">The results will be automatically
+                        exported to your Google Sheet.</small>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="checkStatusBtn">
+                        <i class="fas fa-sync-alt"></i> Check Status
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-bolt"></i> Start Automation
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div id="leadsResults" class="scraped-results" style="display: none; margin-top: 2rem;">
+            <h3>
+                <i class="fas fa-check-circle"></i>
+                Automation Status
+            </h3>
+            <div id="leadsStatusContent" class="results-content">
+                <!-- Status updates will appear here -->
+            </div>
+
+            <div class="alert alert-info"
+                style="margin-top: 1rem; background: rgba(0, 78, 137, 0.1); padding: 1rem; border-radius: var(--radius-md); border-left: 4px solid var(--secondary);">
+                <i class="fas fa-info-circle"></i>
+                <strong>Note:</strong> This process runs in the background via N8N. You will be notified when the Google
+                Sheet is ready.
+            </div>
+        </div>
+    </section>
+
     <!-- Auth Modal -->
     <div class="modal" id="authModal">
         <div class="modal-overlay" id="modalOverlay"></div>
@@ -396,7 +490,7 @@
             <button class="modal-close" id="modalClose">
                 <i class="fas fa-times"></i>
             </button>
-            
+
             <div class="modal-body">
                 <!-- Login Form -->
                 <div class="auth-form active" id="loginForm">
@@ -404,7 +498,7 @@
                         <h2>Welcome Back</h2>
                         <p>Login to manage your favorite food trucks</p>
                     </div>
-                    
+
                     <form id="loginFormElement">
                         <div class="form-group">
                             <label for="loginEmail">
@@ -413,7 +507,7 @@
                             </label>
                             <input type="email" id="loginEmail" required placeholder="your@email.com">
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="loginPassword">
                                 <i class="fas fa-lock"></i>
@@ -421,25 +515,25 @@
                             </label>
                             <input type="password" id="loginPassword" required placeholder="••••••••">
                         </div>
-                        
+
                         <button type="submit" class="btn btn-primary btn-block">
                             <i class="fas fa-sign-in-alt"></i>
                             Login
                         </button>
                     </form>
-                    
+
                     <div class="auth-footer">
                         <p>Don't have an account? <a href="#" id="showRegister">Register here</a></p>
                     </div>
                 </div>
-                
+
                 <!-- Register Form -->
                 <div class="auth-form" id="registerForm">
                     <div class="auth-header">
                         <h2>Create Account</h2>
                         <p>Join us to discover amazing food trucks</p>
                     </div>
-                    
+
                     <form id="registerFormElement">
                         <div class="form-group">
                             <label for="registerUsername">
@@ -448,7 +542,7 @@
                             </label>
                             <input type="text" id="registerUsername" required placeholder="johndoe">
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="registerEmail">
                                 <i class="fas fa-envelope"></i>
@@ -456,7 +550,7 @@
                             </label>
                             <input type="email" id="registerEmail" required placeholder="your@email.com">
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="registerPassword">
                                 <i class="fas fa-lock"></i>
@@ -464,13 +558,13 @@
                             </label>
                             <input type="password" id="registerPassword" required placeholder="••••••••">
                         </div>
-                        
+
                         <button type="submit" class="btn btn-primary btn-block">
                             <i class="fas fa-user-plus"></i>
                             Create Account
                         </button>
                     </form>
-                    
+
                     <div class="auth-footer">
                         <p>Already have an account? <a href="#" id="showLogin">Login here</a></p>
                     </div>
@@ -494,4 +588,5 @@
     <script src="js/ui.js"></script>
     <script src="js/app.js"></script>
 </body>
+
 </html>
