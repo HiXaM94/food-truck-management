@@ -3,12 +3,20 @@ require('dotenv').config();
 
 // Database connection pool configuration
 // Supports connection string (DATABASE_URL) or individual parameters
-// Helper to clean connection string
+// Helper to clean connection string securely
 const getConnectionString = () => {
-    let url = process.env.POSTGRES_URL || process.env.DATABASE_URL;
-    if (!url) return undefined;
-    // Strip sslmode from URL to prevent conflicts with our explicit config
-    return url.replace(/(\?|&)sslmode=([^&]+)/, '');
+    const connectionString = process.env.POSTGRES_URL || process.env.DATABASE_URL;
+    if (!connectionString) return undefined;
+
+    try {
+        // Use URL API to safely manipulate parameters
+        const url = new URL(connectionString);
+        url.searchParams.delete('sslmode');
+        return url.toString();
+    } catch (error) {
+        // If not a valid URL (e.g. simple string), return as is
+        return connectionString;
+    }
 };
 
 const pool = new Pool({

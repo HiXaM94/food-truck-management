@@ -7,11 +7,18 @@ require('dotenv').config();
  * Initialize database with schema
  */
 async function initDatabase() {
-    // Helper to clean connection string
+    // Helper to clean connection string securely
     const getConnectionString = () => {
-        let url = process.env.POSTGRES_URL || process.env.DATABASE_URL;
-        if (!url) return undefined;
-        return url.replace(/(\?|&)sslmode=([^&]+)/, '');
+        const connectionString = process.env.POSTGRES_URL || process.env.DATABASE_URL;
+        if (!connectionString) return undefined;
+
+        try {
+            const url = new URL(connectionString);
+            url.searchParams.delete('sslmode');
+            return url.toString();
+        } catch (error) {
+            return connectionString;
+        }
     };
 
     const pool = new Pool({
