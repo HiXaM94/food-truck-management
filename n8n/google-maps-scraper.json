@@ -1,0 +1,118 @@
+{
+    "name": "Food Truck Google Maps Scraper",
+    "nodes": [
+        {
+            "parameters": {},
+            "name": "Webhook",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1,
+            "position": [
+                250,
+                300
+            ],
+            "webhookId": "scrape-foodtrucks"
+        },
+        {
+            "parameters": {
+                "url": "https://www.google.com/maps/search/food+trucks+{{$json[\"city\"]}}",
+                "options": {
+                    "waitUntil": "networkidle"
+                }
+            },
+            "name": "Open Google Maps",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 1,
+            "position": [
+                450,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "functionCode": "// Extract food truck data from Google Maps HTML\nconst html = items[0].json.body;\n\n// This is a simplified example - actual implementation would need\n// proper HTML parsing and data extraction\nconst foodTrucks = [];\n\n// Parse HTML and extract:\n// - Name\n// - Address/Location\n// - Rating\n// - Price level\n// - Cuisine type (from description)\n// - Operating hours\n// - Photos\n\n// Example output structure:\nfoodTrucks.push({\n  name: \"Burger Paradise\",\n  cuisine: \"burger\",\n  city: $json[\"city\"],\n  current_location: \"Place de la République\",\n  average_price: 12.50,\n  operating_hours: \"Mon-Sat: 11AM-10PM\",\n  status: \"active\",\n  image: \"https://maps.googleapis.com/...\"\n});\n\nreturn foodTrucks.map(truck => ({ json: truck }));"
+            },
+            "name": "Parse Data",
+            "type": "n8n-nodes-base.function",
+            "typeVersion": 1,
+            "position": [
+                650,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "url": "={{$env.API_BASE_URL}}/api/foodtrucks",
+                "authentication": "genericCredentialType",
+                "genericAuthType": "httpHeaderAuth",
+                "options": {},
+                "bodyParametersJson": "={{ JSON.stringify($json) }}"
+            },
+            "name": "Insert to Database",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 1,
+            "position": [
+                850,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "respondWith": "json",
+                "responseBody": "={{ { \"success\": true, \"imported\": $json.length } }}"
+            },
+            "name": "Respond to Webhook",
+            "type": "n8n-nodes-base.respondToWebhook",
+            "typeVersion": 1,
+            "position": [
+                1050,
+                300
+            ]
+        }
+    ],
+    "connections": {
+        "Webhook": {
+            "main": [
+                [
+                    {
+                        "node": "Open Google Maps",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Open Google Maps": {
+            "main": [
+                [
+                    {
+                        "node": "Parse Data",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Parse Data": {
+            "main": [
+                [
+                    {
+                        "node": "Insert to Database",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Insert to Database": {
+            "main": [
+                [
+                    {
+                        "node": "Respond to Webhook",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}

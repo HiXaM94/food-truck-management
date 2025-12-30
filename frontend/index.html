@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover and manage the best food trucks in your city. Browse burgers, tacos, desserts, and more from local street food vendors.">
+    <meta name="keywords" content="food trucks, street food, burgers, tacos, desserts, local food">
+    <title>Food Truck Finder - Discover Local Street Food</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="nav-brand">
+                    <i class="fas fa-truck-monster"></i>
+                    <span>FoodTruck<strong>Finder</strong></span>
+                </div>
+                
+                <div class="nav-menu" id="navMenu">
+                    <a href="#" class="nav-link active" data-page="home">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="#" class="nav-link auth-required" data-page="favorites" style="display: none;">
+                        <i class="fas fa-heart"></i>
+                        <span>My Favorites</span>
+                    </a>
+                    <a href="#" class="nav-link auth-required" data-page="add" style="display: none;">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Add Truck</span>
+                    </a>
+                </div>
+                
+                <div class="nav-actions">
+                    <div class="auth-buttons" id="authButtons">
+                        <button class="btn btn-outline" id="loginBtn">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Login
+                        </button>
+                        <button class="btn btn-primary" id="registerBtn">
+                            <i class="fas fa-user-plus"></i>
+                            Register
+                        </button>
+                    </div>
+                    
+                    <div class="user-menu" id="userMenu" style="display: none;">
+                        <div class="user-avatar" id="userAvatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="user-dropdown" id="userDropdown">
+                            <div class="user-info">
+                                <div class="user-name" id="userName">User</div>
+                                <div class="user-email" id="userEmail">user@example.com</div>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <button class="dropdown-item" id="logoutBtn">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Logout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Page -->
+        <section class="page active" id="homePage">
+            <!-- Hero Section -->
+            <div class="hero">
+                <div class="container">
+                    <div class="hero-content">
+                        <h1 class="hero-title">
+                            Discover Amazing
+                            <span class="gradient-text">Food Trucks</span>
+                            Near You
+                        </h1>
+                        <p class="hero-subtitle">
+                            Explore the best street food, from gourmet burgers to authentic tacos and sweet desserts
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search & Filters -->
+            <div class="search-section">
+                <div class="container">
+                    <div class="search-bar">
+                        <div class="search-input-wrapper">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchInput" placeholder="Search food trucks by name or location...">
+                        </div>
+                        
+                        <div class="filter-group">
+                            <select id="cuisineFilter" class="filter-select">
+                                <option value="">All Cuisines</option>
+                                <option value="burger">🍔 Burgers</option>
+                                <option value="tacos">🌮 Tacos</option>
+                                <option value="desserts">🍰 Desserts</option>
+                                <option value="pizza">🍕 Pizza</option>
+                                <option value="asian">🍜 Asian</option>
+                                <option value="mexican">🌯 Mexican</option>
+                                <option value="italian">🍝 Italian</option>
+                                <option value="american">🍗 American</option>
+                                <option value="french">🥖 French</option>
+                                <option value="other">🍽️ Other</option>
+                            </select>
+                            
+                            <select id="statusFilter" class="filter-select">
+                                <option value="">All Status</option>
+                                <option value="active">🟢 Active</option>
+                                <option value="inactive">🔴 Inactive</option>
+                            </select>
+                            
+                            <button class="btn btn-primary" id="searchBtn">
+                                <i class="fas fa-filter"></i>
+                                Apply Filters
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Food Trucks Grid -->
+            <div class="trucks-section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2 class="section-title">Featured Food Trucks</h2>
+                        <div class="results-count" id="resultsCount">Loading...</div>
+                    </div>
+                    
+                    <div class="trucks-grid" id="trucksGrid">
+                        <!-- Food truck cards will be inserted here by JavaScript -->
+                        <div class="loading-spinner">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Loading food trucks...</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div class="pagination" id="pagination"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Favorites Page -->
+        <section class="page" id="favoritesPage">
+            <div class="container">
+                <div class="page-header">
+                    <h1 class="page-title">
+                        <i class="fas fa-heart"></i>
+                        My Favorite Food Trucks
+                    </h1>
+                    <p class="page-subtitle">Your saved food trucks collection</p>
+                </div>
+                
+                <div class="trucks-grid" id="favoritesGrid">
+                    <div class="loading-spinner">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Loading favorites...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Add/Edit Food Truck Page -->
+        <section class="page" id="addPage">
+            <div class="container">
+                <div class="page-header">
+                    <h1 class="page-title" id="formTitle">
+                        <i class="fas fa-plus-circle"></i>
+                        Add New Food Truck
+                    </h1>
+                </div>
+                
+                <div class="form-container">
+                    <form id="foodTruckForm" class="food-truck-form">
+                        <input type="hidden" id="truckId">
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="truckName">
+                                    <i class="fas fa-truck"></i>
+                                    Food Truck Name *
+                                </label>
+                                <input type="text" id="truckName" required placeholder="e.g., Burger Paradise">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="truckCuisine">
+                                    <i class="fas fa-utensils"></i>
+                                    Cuisine Type *
+                                </label>
+                                <select id="truckCuisine" required>
+                                    <option value="">Select cuisine...</option>
+                                    <option value="burger">🍔 Burgers</option>
+                                    <option value="tacos">🌮 Tacos</option>
+                                    <option value="desserts">🍰 Desserts</option>
+                                    <option value="pizza">🍕 Pizza</option>
+                                    <option value="asian">🍜 Asian</option>
+                                    <option value="mexican">🌯 Mexican</option>
+                                    <option value="italian">🍝 Italian</option>
+                                    <option value="american">🍗 American</option>
+                                    <option value="french">🥖 French</option>
+                                    <option value="other">🍽️ Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="truckCity">
+                                    <i class="fas fa-city"></i>
+                                    City *
+                                </label>
+                                <input type="text" id="truckCity" required placeholder="e.g., Paris">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="truckLocation">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    Current Location
+                                </label>
+                                <input type="text" id="truckLocation" placeholder="e.g., Place de la République">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="truckPrice">
+                                    <i class="fas fa-euro-sign"></i>
+                                    Average Price (€)
+                                </label>
+                                <input type="number" id="truckPrice" step="0.01" min="0" placeholder="e.g., 12.50">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="truckHours">
+                                    <i class="fas fa-clock"></i>
+                                    Operating Hours
+                                </label>
+                                <input type="text" id="truckHours" placeholder="e.g., Mon-Sat: 11AM-10PM">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="truckStatus">
+                                    <i class="fas fa-toggle-on"></i>
+                                    Status
+                                </label>
+                                <select id="truckStatus">
+                                    <option value="active">🟢 Active</option>
+                                    <option value="inactive">🔴 Inactive</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="truckImage">
+                                    <i class="fas fa-image"></i>
+                                    Image URL
+                                </label>
+                                <input type="url" id="truckImage" placeholder="https://example.com/image.jpg">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="truckMenu">
+                                <i class="fas fa-list"></i>
+                                Menu (JSON format or text)
+                            </label>
+                            <textarea id="truckMenu" rows="4" placeholder='{"items": ["Classic Burger", "Cheese Burger", "Fries"]}'></textarea>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-outline" id="cancelFormBtn">
+                                <i class="fas fa-times"></i>
+                                Cancel
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i>
+                                <span id="submitBtnText">Add Food Truck</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Auth Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="modal-body">
+                <!-- Login Form -->
+                <div class="auth-form active" id="loginForm">
+                    <div class="auth-header">
+                        <h2>Welcome Back</h2>
+                        <p>Login to manage your favorite food trucks</p>
+                    </div>
+                    
+                    <form id="loginFormElement">
+                        <div class="form-group">
+                            <label for="loginEmail">
+                                <i class="fas fa-envelope"></i>
+                                Email
+                            </label>
+                            <input type="email" id="loginEmail" required placeholder="your@email.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="loginPassword">
+                                <i class="fas fa-lock"></i>
+                                Password
+                            </label>
+                            <input type="password" id="loginPassword" required placeholder="••••••••">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Login
+                        </button>
+                    </form>
+                    
+                    <div class="auth-footer">
+                        <p>Don't have an account? <a href="#" id="showRegister">Register here</a></p>
+                    </div>
+                </div>
+                
+                <!-- Register Form -->
+                <div class="auth-form" id="registerForm">
+                    <div class="auth-header">
+                        <h2>Create Account</h2>
+                        <p>Join us to discover amazing food trucks</p>
+                    </div>
+                    
+                    <form id="registerFormElement">
+                        <div class="form-group">
+                            <label for="registerUsername">
+                                <i class="fas fa-user"></i>
+                                Username
+                            </label>
+                            <input type="text" id="registerUsername" required placeholder="johndoe">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="registerEmail">
+                                <i class="fas fa-envelope"></i>
+                                Email
+                            </label>
+                            <input type="email" id="registerEmail" required placeholder="your@email.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="registerPassword">
+                                <i class="fas fa-lock"></i>
+                                Password
+                            </label>
+                            <input type="password" id="registerPassword" required placeholder="••••••••">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-user-plus"></i>
+                            Create Account
+                        </button>
+                    </form>
+                    
+                    <div class="auth-footer">
+                        <p>Already have an account? <a href="#" id="showLogin">Login here</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Success!</span>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
