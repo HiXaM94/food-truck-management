@@ -540,11 +540,14 @@ class App {
             `;
 
             // Trigger the backend endpoint which calls N8N
-            const response = await api.request('/n8n/trigger-lead-generation', 'POST', {
-                searchQuery,
-                location,
-                limit,
-                spreadsheetId
+            const response = await api.request('/api/n8n/trigger-lead-generation', {
+                method: 'POST',
+                body: JSON.stringify({
+                    searchQuery,
+                    location,
+                    limit,
+                    spreadsheetId
+                })
             });
 
             if (response.success) {
