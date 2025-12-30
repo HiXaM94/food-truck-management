@@ -21,12 +21,12 @@ app.use(express.static(path.join(__dirname, '../frontend')));
 // API Routes
 const authRoutes = require('./routes/authRoutes');
 const foodTruckRoutes = require('./routes/foodTruckRoutes');
-const favoriteRoutes = require('./routes/favoriteRoutes');
+const favoritesRoutes = require('./routes/favoritesRoutes');
 const scraperRoutes = require('./routes/scraperRoutes');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/foodtrucks', foodTruckRoutes);
-app.use('/api/favorites', favoriteRoutes);
+app.use('/api/favorites', favoritesRoutes);
 app.use('/api/scraper', scraperRoutes);
 
 // Health check endpoint
