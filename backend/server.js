@@ -12,14 +12,18 @@ const { initDatabase } = require('./config/initDb'); // Import initDb
 
 const startServer = async () => {
     try {
-        // Test database connection
-        const dbConnected = await testConnection();
-
-        if (dbConnected) {
-            // Initialize database tables if connected
-            await initDatabase();
-        } else {
-            console.error('⚠️  Warning: Database connection failed. Server starting anyway...');
+        // Attempt database connection and initialization
+        try {
+            const dbConnected = await testConnection();
+            if (dbConnected) {
+                console.log('Database connected. Initializing tables...');
+                await initDatabase();
+            } else {
+                console.error('⚠️ Database connection failed. API endpoints may not work.');
+            }
+        } catch (dbError) {
+            console.error('⚠️ Database initialization error:', dbError.message);
+            // We do NOT exit here, so the frontend can still be served
         }
 
         // Start listening
