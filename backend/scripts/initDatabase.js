@@ -8,7 +8,7 @@ require('dotenv').config();
  */
 async function initDatabase() {
     const pool = new Pool({
-        connectionString: process.env.DATABASE_URL,
+        connectionString: process.env.POSTGRES_URL || process.env.DATABASE_URL,
         host: process.env.DB_HOST,
         user: process.env.DB_USER,
         password: process.env.DB_PASSWORD,

@@ -4,14 +4,14 @@ require('dotenv').config();
 // Database connection pool configuration
 // Supports connection string (DATABASE_URL) or individual parameters
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    // Fallback if DATABASE_URL is not set
+    connectionString: process.env.POSTGRES_URL || process.env.DATABASE_URL,
+    // Fallback if connection string is not set
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     port: process.env.DB_PORT || 5432,
-    ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false
+    ssl: (process.env.POSTGRES_URL || process.env.DATABASE_URL) ? { rejectUnauthorized: false } : false
 });
 
 // Test database connection
