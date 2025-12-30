@@ -1946,3 +1946,6 @@ a:hover {
 .skip-to-main:focus {
     top: 0;
 }
+/* FIX: Ensure Toast is above Modal */
+.toast-container { z-index: 99999 !important; }
+.toast { z-index: 99999 !important; }
