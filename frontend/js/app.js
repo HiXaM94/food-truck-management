@@ -111,6 +111,14 @@ class App {
             ui.navigateTo('home');
         });
 
+        // Scraper form
+        const scraperForm = document.getElementById('scraperForm');
+        if (scraperForm) {
+            scraperForm.addEventListener('submit', (e) => {
+                this.handleScraperSubmit(e);
+            });
+        }
+
         // Event delegation for dynamic elements
         document.addEventListener('click', (e) => {
             // Favorite button
@@ -267,10 +275,21 @@ class App {
 
             this.currentPage = page;
 
+            // Update stats
+            this.updateStats(response.pagination.total);
+
         } catch (error) {
             ui.showToast('Failed to load food trucks', 'error');
             console.error(error);
         }
+    }
+
+    /**
+     * Update hero stats
+     */
+    updateStats(totalTrucks) {
+        document.getElementById('totalTrucks').textContent = totalTrucks || 0;
+        // You can add more dynamic stats here
     }
 
     /**
@@ -398,9 +417,97 @@ class App {
             ui.showToast(error.message, 'error');
         }
     }
+
+    /**
+     * Handle Google Maps scraper submit
+     */
+    async handleScraperSubmit(e) {
+        e.preventDefault();
+
+        const query = document.getElementById('scraperQuery').value;
+        const limit = parseInt(document.getElementById('scraperLimit').value) || 10;
+        const radius = parseInt(document.getElementById('scraperRadius').value) || 5;
+
+        try {
+            ui.showToast('Starting scraper... This may take a moment.', 'info');
+
+            // Scrape data from Google Maps
+            const response = await scraper.scrapePlaces(query, limit, radius);
+
+            if (!response.data || response.data.length === 0) {
+                ui.showToast('No results found for this query', 'warning');
+                return;
+            }
+
+            // Parse scraped data
+            const parsedData = scraper.parseScrapedData(response.data);
+
+            // Display results
+            const resultsContainer = document.getElementById('scraperResults');
+            const resultsContent = document.getElementById('scraperResultsContent');
+
+            resultsContainer.style.display = 'block';
+            resultsContent.innerHTML = `
+                <div style="background: var(--gray-50); padding: 1rem; border-radius: var(--radius-lg); margin-bottom: 1rem;">
+                    <p><strong>Found ${parsedData.length} food trucks</strong></p>
+                    <p style="color: var(--gray-600); font-size: 0.875rem;">Review the results below and click "Import All" to add them to your database.</p>
+                </div>
+                <div style="max-height: 400px; overflow-y: auto; margin-bottom: 1rem;">
+                    ${parsedData.map((truck, index) => `
+                        <div style="background: var(--white); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 0.5rem; border: 1px solid var(--gray-200);">
+                            <strong>${index + 1}. ${truck.name}</strong>
+                            <div style="color: var(--gray-600); font-size: 0.875rem; margin-top: 0.25rem;">
+                                ${truck.cuisine} • ${truck.city} • ${truck.status}
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+                <button class="btn btn-primary btn-block" id="importScrapedBtn">
+                    <i class="fas fa-download"></i>
+                    Import All to Database
+                </button>
+            `;
+
+            // Add import button handler
+            document.getElementById('importScrapedBtn').addEventListener('click', async () => {
+                try {
+                    ui.showToast('Importing scraped data...', 'info');
+                    const importResults = await scraper.importScrapedData(parsedData);
+
+                    ui.showToast(
+                        `Successfully imported ${importResults.success.length} food trucks!`,
+                        'success'
+                    );
+
+                    if (importResults.failed.length > 0) {
+                        console.error('Failed imports:', importResults.failed);
+                        ui.showToast(
+                            `${importResults.failed.length} items failed to import`,
+                            'warning'
+                        );
+                    }
+
+                    // Reset form and navigate home
+                    document.getElementById('scraperForm').reset();
+                    resultsContainer.style.display = 'none';
+                    ui.navigateTo('home');
+                    await this.loadFoodTrucks();
+
+                } catch (error) {
+                    ui.showToast('Failed to import data: ' + error.message, 'error');
+                }
+            });
+
+            ui.showToast('Scraping completed successfully!', 'success');
+
+        } catch (error) {
+            console.error('Scraper error:', error);
+            ui.showToast(error.message || 'Failed to scrape data', 'error');
+        }
+    }
 }
 
 // Initialize app when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    new App();
+    window.app = new App();
 });

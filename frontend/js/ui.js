@@ -133,6 +133,11 @@ class UI {
         const isOwner = auth.isAuthenticated() && auth.getUser().id === truck.created_by;
         const isFavorited = truck.is_favorited || false;
 
+        // Generate rating stars
+        const rating = truck.rating || 0;
+        const reviewsCount = truck.reviews_count || 0;
+        const starsHTML = this.generateStars(rating);
+
         card.innerHTML = `
             <div class="truck-image">
                 <img src="${truck.image || DEFAULT_IMAGE}" alt="${truck.name}" 
@@ -149,6 +154,12 @@ class UI {
                 <div class="truck-header">
                     <h3 class="truck-name">${truck.name}</h3>
                     <span class="truck-cuisine">${CUISINE_EMOJIS[truck.cuisine] || '🍽️'} ${truck.cuisine}</span>
+                    ${rating > 0 ? `
+                        <div class="truck-rating">
+                            <div class="stars">${starsHTML}</div>
+                            <span class="rating-text">${rating.toFixed(1)} (${reviewsCount} reviews)</span>
+                        </div>
+                    ` : ''}
                 </div>
                 <div class="truck-info">
                     <div class="info-item">
@@ -186,6 +197,34 @@ class UI {
         `;
 
         return card;
+    }
+
+    /**
+     * Generate star rating HTML
+     */
+    generateStars(rating) {
+        const fullStars = Math.floor(rating);
+        const hasHalfStar = rating % 1 >= 0.5;
+        const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+        let starsHTML = '';
+
+        // Full stars
+        for (let i = 0; i < fullStars; i++) {
+            starsHTML += '<i class="fas fa-star"></i>';
+        }
+
+        // Half star
+        if (hasHalfStar) {
+            starsHTML += '<i class="fas fa-star-half-alt"></i>';
+        }
+
+        // Empty stars
+        for (let i = 0; i < emptyStars; i++) {
+            starsHTML += '<i class="far fa-star"></i>';
+        }
+
+        return starsHTML;
     }
 
     /**

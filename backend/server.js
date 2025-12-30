@@ -4,17 +4,61 @@ const path = require('path');
 require('dotenv').config();
 
 const { testConnection } = require('./config/database');
-const { initDatabase } = require('./config/initDb'); // Import initDb
+const { initDatabase } = require('./config/initDb');
 
-// ... (existing imports)
+// Initialize Express app
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-// ...
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Serve static files from frontend
+app.use(express.static(path.join(__dirname, '../frontend')));
+
+// API Routes
+const authRoutes = require('./routes/authRoutes');
+const foodTruckRoutes = require('./routes/foodTruckRoutes');
+const favoriteRoutes = require('./routes/favoriteRoutes');
+const scraperRoutes = require('./routes/scraperRoutes');
+
+app.use('/api/auth', authRoutes);
+app.use('/api/foodtrucks', foodTruckRoutes);
+app.use('/api/favorites', favoriteRoutes);
+app.use('/api/scraper', scraperRoutes);
+
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+    res.json({
+        success: true,
+        message: 'Server is running',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// Serve frontend for all other routes
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/index.html'));
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error('Error:', err);
+    res.status(err.status || 500).json({
+        success: false,
+        message: err.message || 'Internal server error'
+    });
+});
 
 const startServer = async () => {
     try {
+        let dbConnected = false;
+
         // Attempt database connection and initialization
         try {
-            const dbConnected = await testConnection();
+            dbConnected = await testConnection();
             if (dbConnected) {
                 console.log('Database connected. Initializing tables...');
                 await initDatabase();
@@ -48,6 +92,7 @@ const startServer = async () => {
             console.log('   - POST   /api/favorites/:foodtruckId');
             console.log('   - DELETE /api/favorites/:foodtruckId');
             console.log('   - GET    /api/favorites/my-favorites');
+            console.log('   - POST   /api/scraper/google-maps');
             console.log('');
             console.log('   Press Ctrl+C to stop the server');
             console.log('   ============================================');
