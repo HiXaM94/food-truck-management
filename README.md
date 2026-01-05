@@ -96,7 +96,7 @@ A sophisticated, full-stack food truck management application with modern UI/UX,
    
    Open your browser and navigate to:
    ```
-   http://localhost:3000
+   https://food-truck-management.vercel.app/
    ```
 
 ## 📖 Usage Guide
