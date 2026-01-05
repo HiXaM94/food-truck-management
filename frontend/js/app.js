@@ -158,304 +158,326 @@ class App {
                     this.loadFoodTrucks(page);
                 }
             }
+        }
         });
+
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navMenu = document.getElementById('navMenu');
+
+    if(mobileMenuBtn && navMenu) {
+    mobileMenuBtn.addEventListener('click', () => {
+        navMenu.classList.toggle('hidden');
+        navMenu.classList.toggle('flex');
+    });
+
+    // Close menu when clicking a link on mobile
+    navMenu.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth < 768) { // md breakpoint
+                navMenu.classList.add('hidden');
+                navMenu.classList.remove('flex');
+            }
+        });
+    });
+}
     }
 
     /**
      * Handle navigation
      */
     async handleNavigation(page) {
-        if (page === 'favorites') {
-            if (!auth.isAuthenticated()) {
-                ui.showToast('Please login to view favorites', 'error');
-                return;
-            }
-            await this.loadFavorites();
-        } else if (page === 'add') {
-            if (!auth.isAuthenticated()) {
-                ui.showToast('Please login to add food trucks', 'error');
-                return;
-            }
-            ui.resetForm();
-        } else if (page === 'home') {
-            await this.loadFoodTrucks();
+    if (page === 'favorites') {
+        if (!auth.isAuthenticated()) {
+            ui.showToast('Please login to view favorites', 'error');
+            return;
         }
-
-        ui.navigateTo(page);
+        await this.loadFavorites();
+    } else if (page === 'add') {
+        if (!auth.isAuthenticated()) {
+            ui.showToast('Please login to add food trucks', 'error');
+            return;
+        }
+        ui.resetForm();
+    } else if (page === 'home') {
+        await this.loadFoodTrucks();
     }
+
+    ui.navigateTo(page);
+}
 
     /**
      * Handle login
      */
     async handleLogin(e) {
-        e.preventDefault();
+    e.preventDefault();
 
-        const email = document.getElementById('loginEmail').value;
-        const password = document.getElementById('loginPassword').value;
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
 
-        try {
-            await auth.login(email, password);
-            ui.toggleModal(false);
-            ui.updateAuthUI();
-            ui.showToast('Login successful!', 'success');
+    try {
+        await auth.login(email, password);
+        ui.toggleModal(false);
+        ui.updateAuthUI();
+        ui.showToast('Login successful!', 'success');
 
-            // Reload current page
-            await this.loadFoodTrucks();
+        // Reload current page
+        await this.loadFoodTrucks();
 
-        } catch (error) {
-            ui.showToast(error.message, 'error');
-        }
+    } catch (error) {
+        ui.showToast(error.message, 'error');
     }
+}
 
     /**
      * Handle register
      */
     async handleRegister(e) {
-        e.preventDefault();
+    e.preventDefault();
 
-        const username = document.getElementById('registerUsername').value;
-        const email = document.getElementById('registerEmail').value;
-        const password = document.getElementById('registerPassword').value;
+    const username = document.getElementById('registerUsername').value;
+    const email = document.getElementById('registerEmail').value;
+    const password = document.getElementById('registerPassword').value;
 
-        try {
-            await auth.register(username, email, password);
-            ui.toggleModal(false);
-            ui.updateAuthUI();
-            ui.showToast('Registration successful!', 'success');
-
-            // Reload current page
-            await this.loadFoodTrucks();
-
-        } catch (error) {
-            ui.showToast(error.message, 'error');
-        }
-    }
-
-    /**
-     * Handle logout
-     */
-    handleLogout() {
-        auth.logout();
+    try {
+        await auth.register(username, email, password);
+        ui.toggleModal(false);
         ui.updateAuthUI();
-        ui.showToast('Logged out successfully', 'success');
-        ui.navigateTo('home');
-        this.loadFoodTrucks();
+        ui.showToast('Registration successful!', 'success');
+
+        // Reload current page
+        await this.loadFoodTrucks();
+
+    } catch (error) {
+        ui.showToast(error.message, 'error');
     }
+}
+
+/**
+ * Handle logout
+ */
+handleLogout() {
+    auth.logout();
+    ui.updateAuthUI();
+    ui.showToast('Logged out successfully', 'success');
+    ui.navigateTo('home');
+    this.loadFoodTrucks();
+}
 
     /**
      * Handle search and filters
      */
     async handleSearch() {
-        const search = document.getElementById('searchInput').value;
-        const cuisine = document.getElementById('cuisineFilter').value;
-        const status = document.getElementById('statusFilter').value;
+    const search = document.getElementById('searchInput').value;
+    const cuisine = document.getElementById('cuisineFilter').value;
+    const status = document.getElementById('statusFilter').value;
 
-        this.currentFilters = {
-            search,
-            cuisine,
-            status
-        };
+    this.currentFilters = {
+        search,
+        cuisine,
+        status
+    };
 
-        await this.loadFoodTrucks(1);
-    }
+    await this.loadFoodTrucks(1);
+}
 
     /**
      * Load food trucks
      */
     async loadFoodTrucks(page = 1) {
-        try {
-            ui.showLoading('trucksGrid');
+    try {
+        ui.showLoading('trucksGrid');
 
-            const params = {
-                page,
-                limit: ITEMS_PER_PAGE,
-                ...this.currentFilters
-            };
+        const params = {
+            page,
+            limit: ITEMS_PER_PAGE,
+            ...this.currentFilters
+        };
 
-            const response = await api.getFoodTrucks(params);
+        const response = await api.getFoodTrucks(params);
 
-            ui.renderTrucks(response.data, 'trucksGrid');
-            ui.renderPagination(response.pagination);
+        ui.renderTrucks(response.data, 'trucksGrid');
+        ui.renderPagination(response.pagination);
 
-            // Update results count
-            document.getElementById('resultsCount').textContent =
-                `${response.pagination.total} food trucks found`;
+        // Update results count
+        document.getElementById('resultsCount').textContent =
+            `${response.pagination.total} food trucks found`;
 
-            this.currentPage = page;
+        this.currentPage = page;
 
-            // Update stats
-            this.updateStats(response.pagination.total);
+        // Update stats
+        this.updateStats(response.pagination.total);
 
-        } catch (error) {
-            ui.showToast('Failed to load food trucks', 'error');
-            console.error(error);
-        }
+    } catch (error) {
+        ui.showToast('Failed to load food trucks', 'error');
+        console.error(error);
     }
+}
 
-    /**
-     * Update hero stats
-     */
-    updateStats(totalTrucks) {
-        document.getElementById('totalTrucks').textContent = totalTrucks || 0;
-        // You can add more dynamic stats here
-    }
+/**
+ * Update hero stats
+ */
+updateStats(totalTrucks) {
+    document.getElementById('totalTrucks').textContent = totalTrucks || 0;
+    // You can add more dynamic stats here
+}
 
     /**
      * Load favorites
      */
     async loadFavorites() {
-        try {
-            ui.showLoading('favoritesGrid');
+    try {
+        ui.showLoading('favoritesGrid');
 
-            const response = await api.getMyFavorites();
+        const response = await api.getMyFavorites();
 
-            ui.renderTrucks(response.data, 'favoritesGrid');
+        ui.renderTrucks(response.data, 'favoritesGrid');
 
-        } catch (error) {
-            ui.showToast('Failed to load favorites', 'error');
-            console.error(error);
-        }
+    } catch (error) {
+        ui.showToast('Failed to load favorites', 'error');
+        console.error(error);
     }
+}
 
     /**
      * Handle favorite toggle
      */
     async handleFavoriteToggle(id, btn) {
-        if (!auth.isAuthenticated()) {
-            ui.showToast('Please login to add favorites', 'error');
-            return;
-        }
-
-        try {
-            const isFavorited = btn.classList.contains('favorited');
-
-            if (isFavorited) {
-                await api.removeFavorite(id);
-                btn.classList.remove('favorited');
-                btn.querySelector('i').className = 'far fa-heart';
-                ui.showToast('Removed from favorites', 'success');
-            } else {
-                await api.addFavorite(id);
-                btn.classList.add('favorited');
-                btn.querySelector('i').className = 'fas fa-heart';
-                ui.showToast('Added to favorites', 'success');
-            }
-
-            // Update favorite count
-            const card = btn.closest('.truck-card');
-            const countElement = card.querySelector('.info-item:has(.fa-heart) span');
-            if (countElement) {
-                const currentCount = parseInt(countElement.textContent);
-                const newCount = isFavorited ? currentCount - 1 : currentCount + 1;
-                countElement.textContent = `${newCount} favorites`;
-            }
-
-        } catch (error) {
-            ui.showToast(error.message, 'error');
-        }
+    if (!auth.isAuthenticated()) {
+        ui.showToast('Please login to add favorites', 'error');
+        return;
     }
+
+    try {
+        const isFavorited = btn.classList.contains('favorited');
+
+        if (isFavorited) {
+            await api.removeFavorite(id);
+            btn.classList.remove('favorited');
+            btn.querySelector('i').className = 'far fa-heart';
+            ui.showToast('Removed from favorites', 'success');
+        } else {
+            await api.addFavorite(id);
+            btn.classList.add('favorited');
+            btn.querySelector('i').className = 'fas fa-heart';
+            ui.showToast('Added to favorites', 'success');
+        }
+
+        // Update favorite count
+        const card = btn.closest('.truck-card');
+        const countElement = card.querySelector('.info-item:has(.fa-heart) span');
+        if (countElement) {
+            const currentCount = parseInt(countElement.textContent);
+            const newCount = isFavorited ? currentCount - 1 : currentCount + 1;
+            countElement.textContent = `${newCount} favorites`;
+        }
+
+    } catch (error) {
+        ui.showToast(error.message, 'error');
+    }
+}
 
     /**
      * Handle edit
      */
     async handleEdit(id) {
-        try {
-            const response = await api.getFoodTruck(id);
-            ui.populateForm(response.data);
-            ui.navigateTo('add');
+    try {
+        const response = await api.getFoodTruck(id);
+        ui.populateForm(response.data);
+        ui.navigateTo('add');
 
-        } catch (error) {
-            ui.showToast('Failed to load food truck', 'error');
-        }
+    } catch (error) {
+        ui.showToast('Failed to load food truck', 'error');
     }
+}
 
     /**
      * Handle delete
      */
     async handleDelete(id) {
-        if (!confirm('Are you sure you want to delete this food truck?')) {
-            return;
-        }
-
-        try {
-            await api.deleteFoodTruck(id);
-            ui.showToast('Food truck deleted successfully', 'success');
-            await this.loadFoodTrucks(this.currentPage);
-
-        } catch (error) {
-            ui.showToast(error.message, 'error');
-        }
+    if (!confirm('Are you sure you want to delete this food truck?')) {
+        return;
     }
+
+    try {
+        await api.deleteFoodTruck(id);
+        ui.showToast('Food truck deleted successfully', 'success');
+        await this.loadFoodTrucks(this.currentPage);
+
+    } catch (error) {
+        ui.showToast(error.message, 'error');
+    }
+}
 
     /**
      * Handle food truck form submit
      */
     async handleFoodTruckSubmit(e) {
-        e.preventDefault();
+    e.preventDefault();
 
-        const id = document.getElementById('truckId').value;
-        const data = {
-            name: document.getElementById('truckName').value,
-            cuisine: document.getElementById('truckCuisine').value,
-            city: document.getElementById('truckCity').value,
-            current_location: document.getElementById('truckLocation').value,
-            average_price: document.getElementById('truckPrice').value || null,
-            operating_hours: document.getElementById('truckHours').value,
-            status: document.getElementById('truckStatus').value,
-            image: document.getElementById('truckImage').value,
-            menu: document.getElementById('truckMenu').value
-        };
+    const id = document.getElementById('truckId').value;
+    const data = {
+        name: document.getElementById('truckName').value,
+        cuisine: document.getElementById('truckCuisine').value,
+        city: document.getElementById('truckCity').value,
+        current_location: document.getElementById('truckLocation').value,
+        average_price: document.getElementById('truckPrice').value || null,
+        operating_hours: document.getElementById('truckHours').value,
+        status: document.getElementById('truckStatus').value,
+        image: document.getElementById('truckImage').value,
+        menu: document.getElementById('truckMenu').value
+    };
 
-        try {
-            if (id) {
-                // Update existing
-                await api.updateFoodTruck(id, data);
-                ui.showToast('Food truck updated successfully', 'success');
-            } else {
-                // Create new
-                await api.createFoodTruck(data);
-                ui.showToast('Food truck created successfully', 'success');
-            }
-
-            ui.resetForm();
-            ui.navigateTo('home');
-            await this.loadFoodTrucks();
-
-        } catch (error) {
-            ui.showToast(error.message, 'error');
+    try {
+        if (id) {
+            // Update existing
+            await api.updateFoodTruck(id, data);
+            ui.showToast('Food truck updated successfully', 'success');
+        } else {
+            // Create new
+            await api.createFoodTruck(data);
+            ui.showToast('Food truck created successfully', 'success');
         }
+
+        ui.resetForm();
+        ui.navigateTo('home');
+        await this.loadFoodTrucks();
+
+    } catch (error) {
+        ui.showToast(error.message, 'error');
     }
+}
 
     /**
      * Handle Google Maps scraper submit
      */
     async handleScraperSubmit(e) {
-        e.preventDefault();
+    e.preventDefault();
 
-        const query = document.getElementById('scraperQuery').value;
-        const limit = parseInt(document.getElementById('scraperLimit').value) || 10;
-        const radius = parseInt(document.getElementById('scraperRadius').value) || 5;
+    const query = document.getElementById('scraperQuery').value;
+    const limit = parseInt(document.getElementById('scraperLimit').value) || 10;
+    const radius = parseInt(document.getElementById('scraperRadius').value) || 5;
 
-        try {
-            ui.showToast('Starting scraper... This may take a moment.', 'info');
+    try {
+        ui.showToast('Starting scraper... This may take a moment.', 'info');
 
-            // Scrape data from Google Maps
-            const response = await scraper.scrapePlaces(query, limit, radius);
+        // Scrape data from Google Maps
+        const response = await scraper.scrapePlaces(query, limit, radius);
 
-            if (!response.data || response.data.length === 0) {
-                ui.showToast('No results found for this query', 'warning');
-                return;
-            }
+        if (!response.data || response.data.length === 0) {
+            ui.showToast('No results found for this query', 'warning');
+            return;
+        }
 
-            // Parse scraped data
-            const parsedData = scraper.parseScrapedData(response.data);
+        // Parse scraped data
+        const parsedData = scraper.parseScrapedData(response.data);
 
-            // Display results
-            const resultsContainer = document.getElementById('scraperResults');
-            const resultsContent = document.getElementById('scraperResultsContent');
+        // Display results
+        const resultsContainer = document.getElementById('scraperResults');
+        const resultsContent = document.getElementById('scraperResultsContent');
 
-            resultsContainer.style.display = 'block';
-            resultsContent.innerHTML = `
+        resultsContainer.style.display = 'block';
+        resultsContent.innerHTML = `
                 <div style="background: var(--gray-50); padding: 1rem; border-radius: var(--radius-lg); margin-bottom: 1rem;">
                     <p><strong>Found ${parsedData.length} food trucks</strong></p>
                     <p style="color: var(--gray-600); font-size: 0.875rem;">Review the results below and click "Import All" to add them to your database.</p>
@@ -476,84 +498,84 @@ class App {
                 </button>
             `;
 
-            // Add import button handler
-            document.getElementById('importScrapedBtn').addEventListener('click', async () => {
-                try {
-                    ui.showToast('Importing scraped data...', 'info');
-                    const importResults = await scraper.importScrapedData(parsedData);
+        // Add import button handler
+        document.getElementById('importScrapedBtn').addEventListener('click', async () => {
+            try {
+                ui.showToast('Importing scraped data...', 'info');
+                const importResults = await scraper.importScrapedData(parsedData);
 
+                ui.showToast(
+                    `Successfully imported ${importResults.success.length} food trucks!`,
+                    'success'
+                );
+
+                if (importResults.failed.length > 0) {
+                    console.error('Failed imports:', importResults.failed);
                     ui.showToast(
-                        `Successfully imported ${importResults.success.length} food trucks!`,
-                        'success'
+                        `${importResults.failed.length} items failed to import`,
+                        'warning'
                     );
-
-                    if (importResults.failed.length > 0) {
-                        console.error('Failed imports:', importResults.failed);
-                        ui.showToast(
-                            `${importResults.failed.length} items failed to import`,
-                            'warning'
-                        );
-                    }
-
-                    // Reset form and navigate home
-                    document.getElementById('scraperForm').reset();
-                    resultsContainer.style.display = 'none';
-                    ui.navigateTo('home');
-                    await this.loadFoodTrucks();
-
-                } catch (error) {
-                    ui.showToast('Failed to import data: ' + error.message, 'error');
                 }
-            });
 
-            ui.showToast('Scraping completed successfully!', 'success');
+                // Reset form and navigate home
+                document.getElementById('scraperForm').reset();
+                resultsContainer.style.display = 'none';
+                ui.navigateTo('home');
+                await this.loadFoodTrucks();
 
-        } catch (error) {
-            console.error('Scraper error:', error);
-            ui.showToast(error.message || 'Failed to scrape data', 'error');
-        }
+            } catch (error) {
+                ui.showToast('Failed to import data: ' + error.message, 'error');
+            }
+        });
+
+        ui.showToast('Scraping completed successfully!', 'success');
+
+    } catch (error) {
+        console.error('Scraper error:', error);
+        ui.showToast(error.message || 'Failed to scrape data', 'error');
     }
+}
 
     /**
      * Handle Lead Generation Submit (N8N)
      */
     async handleLeadsSubmit(e) {
-        e.preventDefault();
+    e.preventDefault();
 
-        const searchQuery = document.getElementById('leadQuery').value;
-        const location = document.getElementById('leadLocation').value;
-        const limit = parseInt(document.getElementById('leadLimit').value);
-        const spreadsheetId = document.getElementById('spreadsheetId').value;
+    const searchQuery = document.getElementById('leadQuery').value;
+    const location = document.getElementById('leadLocation').value;
+    const limit = parseInt(document.getElementById('leadLimit').value);
+    const spreadsheetId = document.getElementById('spreadsheetId').value;
 
-        try {
-            ui.showToast('Starting Lead Generation Automation...', 'info');
+    try {
+        ui.showToast('Starting Lead Generation Automation...', 'info');
 
-            const resultsContainer = document.getElementById('leadsResults');
-            const resultsContent = document.getElementById('leadsStatusContent');
+        const resultsContainer = document.getElementById('leadsResults');
+        const resultsContent = document.getElementById('leadsStatusContent');
 
-            resultsContainer.style.display = 'block';
-            resultsContent.innerHTML = `
+        resultsContainer.style.display = 'block';
+        resultsContent.innerHTML = `
                 <div class="loading-spinner">
                     <i class="fas fa-cog fa-spin fa-3x" style="color: var(--primary);"></i>
                     <p style="margin-top: 1rem; font-weight: 500;">Initializing automation...</p>
                 </div>
             `;
 
-            // Trigger the backend endpoint which calls N8N
-            const response = await api.request('/api/n8n/trigger-lead-generation', {
-                method: 'POST',
-                body: JSON.stringify({
-                    searchQuery,
-                    location,
-                    limit,
-                    spreadsheetId
-                })
-            });
+        // Trigger the backend endpoint which calls N8N
+        const response = await api.request('/api/n8n/trigger-lead-generation', {
+            method: 'POST',
+            body: JSON.stringify({
+                searchQuery,
+                location,
+                limit,
+                spreadsheetId
+            })
+        });
 
-            if (response.success) {
-                ui.showToast('Automation started successfully!', 'success');
+        if (response.success) {
+            ui.showToast('Automation started successfully!', 'success');
 
-                resultsContent.innerHTML = `
+            resultsContent.innerHTML = `
                     <div style="background: rgba(30, 35, 50, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 1.5rem; border-radius: var(--radius-lg); text-align: center; border: 1px solid rgba(255, 255, 255, 0.1);">
                         <i class="fas fa-check-circle" style="color: var(--teal); font-size: 3rem; margin-bottom: 1rem;"></i>
                         <h4 style="color: var(--white); margin-bottom: 0.5rem;">Workflow Active</h4>
@@ -579,22 +601,22 @@ class App {
                         </div>
                     </div>
                 `;
-            } else {
-                throw new Error(response.message || 'Failed to start automation');
-            }
+        } else {
+            throw new Error(response.message || 'Failed to start automation');
+        }
 
-        } catch (error) {
-            console.error('Lead generation error:', error);
-            ui.showToast(error.message, 'error');
+    } catch (error) {
+        console.error('Lead generation error:', error);
+        ui.showToast(error.message, 'error');
 
-            document.getElementById('leadsStatusContent').innerHTML = `
+        document.getElementById('leadsStatusContent').innerHTML = `
                 <div style="text-align: center; color: var(--coral);">
                     <i class="fas fa-exclamation-triangle fa-2x"></i>
                     <p style="margin-top: 0.5rem;">Error: ${error.message}</p>
                 </div>
             `;
-        }
     }
+}
 }
 
 // Initialize app when DOM is ready
