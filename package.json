@@ -1,6 +1,6 @@
 {
   "name": "food-truck-management",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Full-stack Food Truck Management System with JWT authentication and n8n integration",
   "main": "backend/server.js",
   "scripts": {
