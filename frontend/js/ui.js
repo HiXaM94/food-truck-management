@@ -416,14 +416,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
             });
 
-            if (!response.ok) throw new Error('Network response was not ok');
+            if (!response.ok) {
+                console.error('Webhook error:', response.status, response.statusText);
+                throw new Error(`Server returned ${response.status}`);
+            }
 
-            const data = await response.json();
+            // Try to parse JSON, but handle text responses too
+            const contentType = response.headers.get("content-type");
+            let botReply;
+
+            if (contentType && contentType.includes("application/json")) {
+                const data = await response.json();
+                botReply = data.response || data.message || data.output || "I received your message but couldn't parse the response.";
+            } else {
+                botReply = await response.text();
+            }
+
             loadingDiv.remove();
 
-            // Extract response text from n8n JSON output
-            // Expecting format: { "response": "Hello..." }
-            const botReply = data.response || "I found some info but I'm not sure how to say it! 🤖";
+            // If reply is empty or just "OK", give a default message
+            if (!botReply || botReply === 'OK' || botReply === '{}') {
+                botReply = "I processed your request, but I don't have a specific answer right now. 🤖";
+            }
+
             addMessage(botReply, false);
 
         } catch (error) {

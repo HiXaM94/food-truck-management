@@ -655,6 +655,21 @@ class App {
             document.getElementById('dashTotalFavorites').textContent = totalFavorites;
             document.getElementById('dashAvgRating').textContent = avgRating;
 
+            // Initialize interactive charts
+            if (typeof dashboard !== 'undefined' && trucks.length > 0) {
+                // Wait for Chart.js to load
+                if (typeof Chart !== 'undefined') {
+                    await dashboard.init(trucks);
+                } else {
+                    // Retry after a short delay if Chart.js not loaded yet
+                    setTimeout(() => {
+                        if (typeof Chart !== 'undefined') {
+                            dashboard.init(trucks);
+                        }
+                    }, 500);
+                }
+            }
+
         } catch (error) {
             console.error('Failed to load dashboard:', error);
             ui.showToast('Failed to load dashboard data', 'error');

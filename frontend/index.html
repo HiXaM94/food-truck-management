@@ -84,6 +84,9 @@
             }
         }
     </style>
+
+    <!-- Chart.js for interactive dashboard -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
 </head>
 
 <body>
@@ -667,15 +670,16 @@
                     <h3 class="chart-title">Cuisine Distribution</h3>
                     <p class="chart-subtitle">Popular food truck categories</p>
                 </div>
-                <div id="cuisineChart"
-                    style="min-height: 300px; display: flex; align-items: center; justify-content: center; color: var(--gray-400);">
-                    <div style="text-align: center;">
-                        <i class="fas fa-chart-pie" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
-                        <p>Chart visualization will be displayed here</p>
-                        <small style="display: block; margin-top: 0.5rem;">Connect Chart.js or similar library for
-                            interactive charts</small>
-                    </div>
+                <canvas id="cuisineChart" style="max-height: 400px;"></canvas>
+            </div>
+
+            <!-- Trucks Over Time Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3 class="chart-title">Trucks Growth</h3>
+                    <p class="chart-subtitle">Food trucks added over time</p>
                 </div>
+                <canvas id="trucksGrowthChart" style="max-height: 300px;"></canvas>
             </div>
 
             <!-- Recent Activity -->
@@ -865,6 +869,7 @@
     <script src="js/api.js" defer></script>
     <script src="js/scraper.js" defer></script>
     <script src="js/dataManager.js" defer></script>
+    <script src="js/dashboard.js" defer></script>
     <script src="js/ui.js" defer></script>
     <script src="js/app.js" defer></script>
     <!-- Analytics - Loaded asynchronously for better performance -->
