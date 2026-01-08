@@ -1300,11 +1300,24 @@ a:hover {
 .nav-menu {
   display: flex;
   gap: 0.5rem;
-  background: rgba(0, 0, 0, 0.03);
-  /* Light gray background for menu container */
+  background: var(--surface);
+  /* White background for mobile */
   padding: 0.5rem;
-  border-radius: 100px;
+  border-radius: var(--radius-xl);
+  /* Standard rounded corners for mobile dropdown */
   border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-lg);
+  /* Shadow for mobile dropdown */
+}
+
+@media (min-width: 768px) {
+  .nav-menu {
+    background: rgba(0, 0, 0, 0.03);
+    /* Light gray pill for desktop */
+    border-radius: 100px;
+    box-shadow: none;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
 }
 
 .nav-link {
