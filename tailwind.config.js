@@ -4,22 +4,49 @@ module.exports = {
     theme: {
         extend: {
             colors: {
+                // Citrus Burst: Modern and friendly - Orange stimulates appetite, blue adds trust
+                citrus: {
+                    orange: '#FF9F1C',      // Vivid Orange
+                    blue: '#2EC4B6',        // Tiffany Blue
+                    white: '#FFFFFF',       // White
+                },
+
+                // Tomato & Herb: Attention-grabbing with sophisticated grounding
+                tomato: {
+                    red: '#E63946',         // Warm Red
+                    aqua: '#A8DADC',        // Soft Aqua
+                    navy: '#1D3557',        // Navy Blue
+                },
+
+                // Sunshine & Spice: Warm, earthy, artisan feel
+                sunshine: {
+                    orange: '#F4A261',      // Sandy Orange
+                    terracotta: '#E76F51',  // Terracotta
+                    teal: '#264653',        // Charcoal Teal
+                },
+
+                // Primary palette (using Citrus Burst as default)
                 primary: {
-                    DEFAULT: '#FF6B35',
-                    dark: '#E85A2A',
-                    light: '#FF8557',
+                    DEFAULT: '#FF9F1C',     // Citrus Orange
+                    dark: '#E68A00',        // Darker orange
+                    light: '#FFB347',       // Lighter orange
                 },
                 secondary: {
-                    DEFAULT: '#004E89',
-                    dark: '#003A66',
-                    light: '#1A6BA8',
+                    DEFAULT: '#2EC4B6',     // Tiffany Blue
+                    dark: '#26A69A',        // Darker blue
+                    light: '#4DD0C3',       // Lighter blue
                 },
                 accent: {
-                    DEFAULT: '#F7B801',
-                    dark: '#D99F00',
+                    DEFAULT: '#E63946',     // Warm Red (from Tomato)
+                    dark: '#C62E3A',        // Darker red
+                    light: '#EE5A66',       // Lighter red
                 },
-                teal: '#1A936F',
-                coral: '#FF6B6B',
+
+                // Additional utility colors
+                teal: '#264653',            // Charcoal Teal (from Sunshine)
+                coral: '#E76F51',           // Terracotta (from Sunshine)
+                aqua: '#A8DADC',            // Soft Aqua (from Tomato)
+
                 gray: {
                     50: '#F8F9FA',
                     100: '#F1F3F5',
