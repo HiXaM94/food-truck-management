@@ -27,8 +27,19 @@ const pool = new Pool({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     port: process.env.DB_PORT || 5432,
-    // Force SSL with no verification for cloud DBs
-    ssl: (process.env.POSTGRES_URL || process.env.DATABASE_URL) ? { rejectUnauthorized: false } : false
+    // Smarter SSL Configuration
+    // Enable SSL if:
+    // 1. Explicitly requested via DB_SSL=true
+    // 2. Using a connection string (usually implies remote/cloud)
+    // 3. In production environment
+    // 4. Connecting to a remote host (not localhost)
+    ssl: (process.env.DB_SSL === 'true' ||
+        process.env.POSTGRES_URL ||
+        process.env.DATABASE_URL ||
+        process.env.NODE_ENV === 'production' ||
+        (process.env.DB_HOST && process.env.DB_HOST !== 'localhost' && process.env.DB_HOST !== '127.0.0.1'))
+        ? { rejectUnauthorized: false }
+        : false
 });
 
 // Test database connection
