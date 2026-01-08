@@ -644,9 +644,12 @@ class App {
             const trucks = response.data || [];
             const totalTrucks = trucks.length;
             const activeTrucks = trucks.filter(t => t.status === 'active').length;
-            const totalFavorites = trucks.reduce((sum, t) => sum + (t.favorite_count || 0), 0);
+
+            // Fix: Parse integers to prevent string concatenation
+            const totalFavorites = trucks.reduce((sum, t) => sum + (parseInt(t.favorite_count) || 0), 0);
+
             const avgRating = trucks.length > 0
-                ? (trucks.reduce((sum, t) => sum + (t.rating || 0), 0) / trucks.length).toFixed(1)
+                ? (trucks.reduce((sum, t) => sum + (parseFloat(t.rating) || 0), 0) / trucks.length).toFixed(1)
                 : '0.0';
 
             // Update dashboard statistics
