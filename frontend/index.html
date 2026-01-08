@@ -71,34 +71,36 @@
                         <i class="fas fa-chart-line"></i>
                         <span>Lead Generation</span>
                     </a>
-                </div>
 
-                <div class="nav-actions flex items-center gap-4 hidden md:flex">
-                    <div class="auth-buttons" id="authButtons">
-                        <button class="btn btn-outline" id="loginBtn">
-                            <i class="fas fa-sign-in-alt"></i>
-                            Login
-                        </button>
-                        <button class="btn btn-primary" id="registerBtn">
-                            <i class="fas fa-user-plus"></i>
-                            Register
-                        </button>
-                    </div>
-
-                    <div class="user-menu" id="userMenu" style="display: none;">
-                        <div class="user-avatar" id="userAvatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="user-dropdown" id="userDropdown">
-                            <div class="user-info">
-                                <div class="user-name" id="userName">User</div>
-                                <div class="user-email" id="userEmail">user@example.com</div>
-                            </div>
-                            <div class="dropdown-divider"></div>
-                            <button class="dropdown-item" id="logoutBtn">
-                                <i class="fas fa-sign-out-alt"></i>
-                                Logout
+                    <!-- Auth Actions (Inside Menu for Mobile) -->
+                    <div class="nav-actions flex flex-col md:flex-row items-center gap-4 mt-4 md:mt-0">
+                        <div class="auth-buttons flex gap-2" id="authButtons">
+                            <button class="btn btn-outline" id="loginBtn">
+                                <i class="fas fa-sign-in-alt"></i>
+                                Login
                             </button>
+                            <button class="btn btn-primary" id="registerBtn">
+                                <i class="fas fa-user-plus"></i>
+                                Register
+                            </button>
+                        </div>
+
+                        <div class="user-menu" id="userMenu" style="display: none;">
+                            <div class="user-avatar" id="userAvatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <!-- User Dropdown -->
+                            <div class="user-dropdown" id="userDropdown">
+                                <div class="user-info">
+                                    <div class="user-name" id="userName">User</div>
+                                    <div class="user-email" id="userEmail">user@example.com</div>
+                                </div>
+                                <div class="dropdown-divider"></div>
+                                <button class="dropdown-item" id="logoutBtn">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    Logout
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
