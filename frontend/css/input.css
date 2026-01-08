@@ -11,23 +11,62 @@
    CSS VARIABLES & DESIGN TOKENS
    ============================================ */
 :root {
-    /* Premium Color Palette - Ocean Sunset Theme */
-    --primary: #FF6B35;
-    --primary-dark: #E85A2A;
-    --primary-light: #FF8557;
-    --secondary: #004E89;
-    --secondary-dark: #003A66;
-    --secondary-light: #1A6BA8;
-    --accent: #F7B801;
-    --accent-dark: #D99F00;
-    --teal: #1A936F;
-    --coral: #FF6B6B;
+    /* ============================================
+       CITRUS BURST PALETTE (Primary)
+       Orange stimulates appetite, Blue adds trust
+       ============================================ */
+    --primary: #FF9F1C;
+    /* Vivid Orange */
+    --primary-dark: #E68A00;
+    /* Darker Orange */
+    --primary-light: #FFB347;
+    /* Lighter Orange */
+    --secondary: #2EC4B6;
+    /* Tiffany Blue */
+    --secondary-dark: #26A69A;
+    /* Darker Blue */
+    --secondary-light: #4DD0C3;
+    /* Lighter Blue */
 
-    /* Gradients - Unique & Vibrant */
-    --gradient-primary: linear-gradient(135deg, #FF6B35 0%, #F7B801 100%);
-    --gradient-secondary: linear-gradient(135deg, #004E89 0%, #1A936F 100%);
-    --gradient-sunset: linear-gradient(135deg, #FF6B35 0%, #FF8E53 50%, #F7B801 100%);
-    --gradient-ocean: linear-gradient(135deg, #004E89 0%, #1A6BA8 50%, #1A936F 100%);
+    /* ============================================
+       TOMATO & HERB PALETTE
+       Attention-grabbing with sophisticated grounding
+       ============================================ */
+    --tomato-red: #E63946;
+    /* Warm Red */
+    --tomato-aqua: #A8DADC;
+    /* Soft Aqua */
+    --tomato-navy: #1D3557;
+    /* Navy Blue */
+
+    /* ============================================
+       SUNSHINE & SPICE PALETTE
+       Warm, earthy, artisan feel
+       ============================================ */
+    --sunshine-orange: #F4A261;
+    /* Sandy Orange */
+    --sunshine-terracotta: #E76F51;
+    /* Terracotta */
+    --sunshine-teal: #264653;
+    /* Charcoal Teal */
+
+    /* Accent & Utility Colors */
+    --accent: #E63946;
+    /* Warm Red from Tomato palette */
+    --accent-dark: #C62E3A;
+    /* Darker Red */
+    --teal: #264653;
+    /* Charcoal Teal from Sunshine */
+    --coral: #E76F51;
+    /* Terracotta from Sunshine */
+    --aqua: #A8DADC;
+    /* Soft Aqua from Tomato */
+
+    /* Gradients - Updated with new palettes */
+    --gradient-primary: linear-gradient(135deg, #FF9F1C 0%, #2EC4B6 100%);
+    --gradient-secondary: linear-gradient(135deg, #2EC4B6 0%, #264653 100%);
+    --gradient-sunset: linear-gradient(135deg, #FF9F1C 0%, #F4A261 50%, #E76F51 100%);
+    --gradient-ocean: linear-gradient(135deg, #2EC4B6 0%, #A8DADC 50%, #1D3557 100%);
     --gradient-dark: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
     --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
 
@@ -223,8 +262,8 @@ a:hover {
 }
 
 .gradient-text {
-    background: linear-gradient(to right, #FF6B35, #F7B801);
-    /* Vibrant Orange to Gold */
+    background: linear-gradient(to right, #FF9F1C, #E76F51);
+    /* Vivid Orange to Terracotta */
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -589,7 +628,7 @@ a:hover {
 }
 
 .hero-title .gradient-text {
-    background: linear-gradient(135deg, #FF6B35 0%, #F7B801 100%);
+    background: linear-gradient(135deg, #FF9F1C 0%, #E76F51 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block;
