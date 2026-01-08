@@ -604,6 +604,36 @@
         <span id="toastMessage">Success!</span>
     </div>
 
+    <!-- Chatbot Widget -->
+    <div class="chatbot-widget">
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-robot"></i>
+                    <span class="font-bold">TruckFinder Bot</span>
+                </div>
+                <!-- Close button for chat -->
+                <button id="closeChatBtn" class="text-white hover:text-gray-200">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot">
+                    Hello! 🚚 I can help you find the best food trucks near you. What are you craving today?
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" class="chat-input" placeholder="Type your message...">
+                <button id="sendMessageBtn" class="chat-send-btn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+        <button class="chat-button" id="chatToggleBtn">
+            <i class="fas fa-comments"></i>
+        </button>
+    </div>
+
     <!-- Scripts -->
     <script src="js/config.js"></script>
     <script src="js/auth.js"></script>

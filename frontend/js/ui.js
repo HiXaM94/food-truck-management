@@ -352,3 +352,73 @@ class UI {
 
 // Create global UI instance
 const ui = new UI();
+
+// Chatbot Initialization
+document.addEventListener('DOMContentLoaded', () => {
+    const chatToggleBtn = document.getElementById('chatToggleBtn');
+    const closeChatBtn = document.getElementById('closeChatBtn');
+    const chatWindow = document.getElementById('chatWindow');
+    const sendBtn = document.getElementById('sendMessageBtn');
+    const chatInput = document.getElementById('chatInput');
+    const messagesContainer = document.getElementById('chatMessages');
+
+    if (!chatToggleBtn || !chatWindow) return;
+
+    function toggleChat() {
+        chatWindow.classList.toggle('active');
+    }
+
+    chatToggleBtn.addEventListener('click', toggleChat);
+    if (closeChatBtn) closeChatBtn.addEventListener('click', toggleChat);
+
+    function addMessage(text, isUser = false) {
+        const div = document.createElement('div');
+        div.className = `message ${isUser ? 'user' : 'bot'}`;
+        div.textContent = text;
+        messagesContainer.appendChild(div);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    async function handleSend() {
+        const text = chatInput.value.trim();
+        if (!text) return;
+
+        addMessage(text, true);
+        chatInput.value = '';
+
+        // Simulate bot response
+        const loadingDiv = document.createElement('div');
+        loadingDiv.className = 'message bot';
+        loadingDiv.textContent = '...';
+        messagesContainer.appendChild(loadingDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+        // Simple mock response logic - In a real app, this would call an API
+        setTimeout(() => {
+            loadingDiv.remove();
+            let response = "I'm searching for the best food trucks for you... 🚚";
+            const lowerText = text.toLowerCase();
+
+            if (lowerText.includes('burger')) {
+                response = "I found some great burger spots! check out 'Burger King' or 'The Patty Wagon'.";
+            } else if (lowerText.includes('taco') || lowerText.includes('mexican')) {
+                response = "Tacos coming right up! 'Taco Bout It' is highly rated nearby.";
+            } else if (lowerText.includes('pizza') || lowerText.includes('italian')) {
+                response = "Pizza sounds great! 'Slice of Heaven' is open and close by.";
+            } else if (lowerText.includes('hello') || lowerText.includes('hi')) {
+                response = "Hi there! What are you in the mood for today?";
+            } else {
+                response = "That sounds delicious! You can use the search bar to find trucks serving that, or let me know a specific cuisine!";
+            }
+
+            addMessage(response, false);
+        }, 1000);
+    }
+
+    if (sendBtn) sendBtn.addEventListener('click', handleSend);
+    if (chatInput) {
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleSend();
+        });
+    }
+});
