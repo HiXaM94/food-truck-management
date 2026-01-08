@@ -12,13 +12,31 @@ class Dashboard {
      * Initialize dashboard charts
      */
     async init(trucksData) {
+        // Dynamic import for performance - ensure Chart.js is loaded
         if (typeof Chart === 'undefined') {
-            console.error('Chart.js not loaded');
-            return;
+            await this.loadChartJs();
         }
 
         this.createCuisineChart(trucksData);
         this.createGrowthChart(trucksData);
+    }
+
+    /**
+     * Dynamically load Chart.js library
+     */
+    async loadChartJs() {
+        return new Promise((resolve, reject) => {
+            if (typeof Chart !== 'undefined') {
+                resolve();
+                return;
+            }
+
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js';
+            script.onload = () => resolve();
+            script.onerror = () => reject(new Error('Failed to load Chart.js'));
+            document.head.appendChild(script);
+        });
     }
 
     /**

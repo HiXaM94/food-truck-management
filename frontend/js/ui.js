@@ -444,7 +444,19 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error('Chatbot Error:', error);
             loadingDiv.remove();
-            addMessage("I'm having a bit of connection trouble. Please try again in a moment! 📡", false);
+
+            // Fallback for demo/offline mode
+            const fallbackResponses = [
+                "I'm having trouble reaching the server, but I can tell you that we have great burger trucks nearby! 🍔",
+                "Connection hiccup! But did you know you can browse all trucks in the 'Food Trucks' section? 🌮",
+                "I can't connect to my brain right now, but I recommend checking out the 'Taco' category! 🌯"
+            ];
+            const randomFallback = fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
+
+            // Show error as a "system message" but give a helpful user response
+            addMessage(randomFallback, false);
+            // Optional: Subtle toast for the actual error
+            // this.showToast('Chat server unreachable', 'error');
         }
     }
 
