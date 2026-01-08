@@ -198,37 +198,25 @@ Impact: API endpoints return 500 errors
 ## 🐛 Known Issues & Solutions
 
 ### Issue #1: Database Connection
-**Status**: ⚠️ Needs Attention
+**Status**: ⚠️ Configuration Mismatch Identified
 
-**Error Message**:
-```
-❌ Database connection failed: received invalid response: 59
-⚠️ Database connection failed. API endpoints may not work.
-```
-
-**Possible Causes**:
-1. Supabase connection string issue
-2. SSL certificate problem
-3. Network connectivity
-4. Invalid credentials
+**Diagnosis**:
+- Current `.env` configuration uses `DB_PORT=3306` (MySQL) and `DB_HOST=localhost`.
+- Application requires **PostgreSQL** (e.g., Supabase on port 5432 or 6543).
 
 **Solution**:
-```bash
-# Check environment variables
-echo $DATABASE_URL
-
-# Verify Supabase connection string format
-# Should be: postgresql://[user]:[password]@[host]:[port]/[database]?sslmode=require
-
-# Test connection
-psql $DATABASE_URL
-```
+1. Update `.env` file with correct Supabase credentials:
+   ```env
+   DB_HOST=db.your-project.supabase.co
+   DB_USER=postgres
+   DB_PASSWORD=[your-password]
+   DB_NAME=postgres
+   DB_PORT=5432
+   ```
+2. **Code Fix Applied**: Backend now automatically handles SSL connections for remote hosts, preventing "error 59".
 
 **Quick Fix**:
-1. Check `.env` file
-2. Verify `DATABASE_URL` is correct
-3. Ensure Supabase project is active
-4. Check network/firewall settings
+Update your `.env` file with the correct PostgreSQL credentials. The backend code has been patched to handle the connection securely.
 
 ---
 
