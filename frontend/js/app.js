@@ -208,6 +208,12 @@ class App {
                 return;
             }
             ui.resetForm();
+        } else if (page === 'dashboard') {
+            if (!auth.isAuthenticated()) {
+                ui.showToast('Please login to view dashboard', 'error');
+                return;
+            }
+            await this.loadDashboard();
         } else if (page === 'home') {
             await this.loadFoodTrucks();
         }
@@ -624,6 +630,34 @@ class App {
                     <p style="margin-top: 0.5rem;">Error: ${error.message}</p>
                 </div>
             `;
+        }
+    }
+
+    /**
+     * Load Dashboard Data
+     */
+    async loadDashboard() {
+        try {
+            // Fetch dashboard statistics
+            const response = await api.getFoodTrucks({ limit: 1000 }); // Get all trucks for stats
+
+            const trucks = response.data || [];
+            const totalTrucks = trucks.length;
+            const activeTrucks = trucks.filter(t => t.status === 'active').length;
+            const totalFavorites = trucks.reduce((sum, t) => sum + (t.favorite_count || 0), 0);
+            const avgRating = trucks.length > 0
+                ? (trucks.reduce((sum, t) => sum + (t.rating || 0), 0) / trucks.length).toFixed(1)
+                : '0.0';
+
+            // Update dashboard statistics
+            document.getElementById('dashTotalTrucks').textContent = totalTrucks;
+            document.getElementById('dashActiveTrucks').textContent = activeTrucks;
+            document.getElementById('dashTotalFavorites').textContent = totalFavorites;
+            document.getElementById('dashAvgRating').textContent = avgRating;
+
+        } catch (error) {
+            console.error('Failed to load dashboard:', error);
+            ui.showToast('Failed to load dashboard data', 'error');
         }
     }
 }

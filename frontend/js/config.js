@@ -34,6 +34,19 @@ const CUISINE_EMOJIS = {
     other: '🍽️'
 };
 
-const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=800';
+// Use local optimized images for better performance
+const DEFAULT_IMAGE = '/images/food-truck-burger.png';
+
+// Cuisine-specific placeholder images
+const CUISINE_IMAGES = {
+    burger: '/images/food-truck-burger.png',
+    tacos: '/images/food-truck-tacos.png',
+    mexican: '/images/food-truck-tacos.png',
+    desserts: '/images/food-truck-dessert.png',
+    default: '/images/food-truck-burger.png'
+};
 
 const ITEMS_PER_PAGE = 6;
+
+// Performance optimization: Enable lazy loading for images
+const ENABLE_LAZY_LOADING = true;

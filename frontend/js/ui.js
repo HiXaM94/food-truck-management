@@ -43,8 +43,10 @@ class UI {
         const modal = document.getElementById('authModal');
         if (show) {
             modal.classList.add('active');
+            document.body.classList.add('modal-open');
         } else {
             modal.classList.remove('active');
+            document.body.classList.remove('modal-open');
         }
     }
 
@@ -138,10 +140,16 @@ class UI {
         const reviewsCount = truck.reviews_count || 0;
         const starsHTML = this.generateStars(rating);
 
+        // Use cuisine-specific placeholder or default
+        const placeholderImage = CUISINE_IMAGES[truck.cuisine] || CUISINE_IMAGES.default;
+        const truckImage = truck.image || placeholderImage;
+
         card.innerHTML = `
             <div class="truck-image">
-                <img src="${truck.image || DEFAULT_IMAGE}" alt="${truck.name}" 
-                     onerror="this.src='${DEFAULT_IMAGE}'">
+                <img src="${truckImage}" 
+                     alt="${truck.name}" 
+                     ${ENABLE_LAZY_LOADING ? 'loading="lazy"' : ''}
+                     onerror="this.src='${placeholderImage}'">
                 <span class="truck-status ${truck.status}">${truck.status}</span>
                 ${auth.isAuthenticated() ? `
                     <button class="favorite-btn ${isFavorited ? 'favorited' : ''}" 
