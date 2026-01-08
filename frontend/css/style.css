@@ -124,7 +124,7 @@
   /* 2 */
   border-style: solid;
   /* 2 */
-  border-color: #E9ECEF;
+  border-color: #E2E8F0;
   /* 2 */
 }
 
@@ -243,7 +243,7 @@ code,
 kbd,
 samp,
 pre {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: JetBrains Mono, monospace;
   /* 1 */
   font-feature-settings: normal;
   /* 2 */
@@ -489,7 +489,7 @@ textarea {
 input::-moz-placeholder, textarea::-moz-placeholder {
   opacity: 1;
   /* 1 */
-  color: #ADB5BD;
+  color: #94A3B8;
   /* 2 */
 }
 
@@ -497,7 +497,7 @@ input::placeholder,
 textarea::placeholder {
   opacity: 1;
   /* 1 */
-  color: #ADB5BD;
+  color: #94A3B8;
   /* 2 */
 }
 
@@ -782,12 +782,12 @@ video {
 
 .border-gray-200 {
   --tw-border-opacity: 1;
-  border-color: rgb(233 236 239 / var(--tw-border-opacity, 1));
+  border-color: rgb(226 232 240 / var(--tw-border-opacity, 1));
 }
 
 .bg-gray-50 {
   --tw-bg-opacity: 1;
-  background-color: rgb(248 249 250 / var(--tw-bg-opacity, 1));
+  background-color: rgb(248 250 252 / var(--tw-bg-opacity, 1));
 }
 
 .bg-gradient-to-r {
@@ -795,13 +795,13 @@ video {
 }
 
 .from-primary {
-  --tw-gradient-from: #FF9F1C var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(255 159 28 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-from: #0066FF var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(0 102 255 / 0) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
 .to-accent {
-  --tw-gradient-to: #E63946 var(--tw-gradient-to-position);
+  --tw-gradient-to: #00D4AA var(--tw-gradient-to-position);
 }
 
 .bg-clip-text {
@@ -910,17 +910,17 @@ video {
 
 .text-gray-400 {
   --tw-text-opacity: 1;
-  color: rgb(173 181 189 / var(--tw-text-opacity, 1));
+  color: rgb(148 163 184 / var(--tw-text-opacity, 1));
 }
 
 .text-gray-800 {
   --tw-text-opacity: 1;
-  color: rgb(33 37 41 / var(--tw-text-opacity, 1));
+  color: rgb(30 41 59 / var(--tw-text-opacity, 1));
 }
 
 .text-primary {
   --tw-text-opacity: 1;
-  color: rgb(255 159 28 / var(--tw-text-opacity, 1));
+  color: rgb(0 102 255 / var(--tw-text-opacity, 1));
 }
 
 .text-slate-400 {
@@ -939,12 +939,12 @@ video {
 
 .placeholder-gray-400::-moz-placeholder {
   --tw-placeholder-opacity: 1;
-  color: rgb(173 181 189 / var(--tw-placeholder-opacity, 1));
+  color: rgb(148 163 184 / var(--tw-placeholder-opacity, 1));
 }
 
 .placeholder-gray-400::placeholder {
   --tw-placeholder-opacity: 1;
-  color: rgb(173 181 189 / var(--tw-placeholder-opacity, 1));
+  color: rgb(148 163 184 / var(--tw-placeholder-opacity, 1));
 }
 
 .shadow-lg {
@@ -960,7 +960,7 @@ video {
 }
 
 .shadow-primary\/25 {
-  --tw-shadow-color: rgb(255 159 28 / 0.25);
+  --tw-shadow-color: rgb(0 102 255 / 0.25);
   --tw-shadow: var(--tw-shadow-colored);
 }
 
@@ -1014,77 +1014,50 @@ video {
 
 :root {
   /* ============================================
-       CITRUS BURST PALETTE (Primary)
-       Orange stimulates appetite, Blue adds trust
+       FUTURISTIC & CONFIDENT PALETTE
+       Electric Blue & Cyan - Modern, Tech-Forward
        ============================================ */
-  --primary: #FF9F1C;
-  /* Vivid Orange */
-  --primary-dark: #E68A00;
-  /* Darker Orange */
-  --primary-light: #FFB347;
-  /* Lighter Orange */
-  --secondary: #2EC4B6;
-  /* Tiffany Blue */
-  --secondary-dark: #26A69A;
+  --primary: #0066FF;
+  /* Electric Blue */
+  --primary-dark: #0052CC;
   /* Darker Blue */
-  --secondary-light: #4DD0C3;
+  --primary-light: #3395FF;
   /* Lighter Blue */
-  /* ============================================
-       TOMATO & HERB PALETTE
-       Attention-grabbing with sophisticated grounding
-       ============================================ */
-  --tomato-red: #E63946;
-  /* Warm Red */
-  --tomato-aqua: #A8DADC;
-  /* Soft Aqua */
-  --tomato-navy: #1D3557;
-  /* Navy Blue */
-  /* ============================================
-       SUNSHINE & SPICE PALETTE
-       Warm, earthy, artisan feel
-       ============================================ */
-  --sunshine-orange: #F4A261;
-  /* Sandy Orange */
-  --sunshine-terracotta: #E76F51;
-  /* Terracotta */
-  --sunshine-teal: #264653;
-  /* Charcoal Teal */
-  /* Accent & Utility Colors */
-  --accent: #E63946;
-  /* Warm Red from Tomato palette */
-  --accent-dark: #C62E3A;
-  /* Darker Red */
-  --teal: #264653;
-  /* Charcoal Teal from Sunshine */
-  --coral: #E76F51;
-  /* Terracotta from Sunshine */
-  --aqua: #A8DADC;
-  /* Soft Aqua from Tomato */
-  /* Gradients - Updated with new palettes */
-  --gradient-primary: linear-gradient(135deg, #FF9F1C 0%, #2EC4B6 100%);
-  --gradient-secondary: linear-gradient(135deg, #2EC4B6 0%, #264653 100%);
-  --gradient-sunset: linear-gradient(135deg, #FF9F1C 0%, #F4A261 50%, #E76F51 100%);
-  --gradient-ocean: linear-gradient(135deg, #2EC4B6 0%, #A8DADC 50%, #1D3557 100%);
-  --gradient-dark: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-  /* Neutral Colors */
-  --white: #ffffff;
-  --gray-50: #F8F9FA;
-  --gray-100: #F1F3F5;
-  --gray-200: #E9ECEF;
-  --gray-300: #DEE2E6;
-  --gray-400: #ADB5BD;
-  --gray-500: #6C757D;
-  --gray-600: #495057;
-  --gray-700: #343A40;
-  --gray-800: #212529;
-  --gray-900: #1A1D21;
-  --black: #000000;
+  --secondary: #00D4AA;
+  /* Cyan-Turquoise */
+  --secondary-dark: #00AA88;
+  /* Darker Cyan */
+  --secondary-light: #33DDBA;
+  /* Lighter Cyan */
+  /* UI Palette */
+  --surface: #FFFFFF;
+  --card: #F8FAFC;
+  --border: #E2E8F0;
   /* Semantic Colors */
-  --success: #1A936F;
-  --warning: #F7B801;
-  --error: #FF6B6B;
-  --info: #1A6BA8;
+  --success: #10B981;
+  --warning: #F59E0B;
+  --error: #EF4444;
+  --info: #8B5CF6;
+  /* Purple */
+  /* Accent Colors */
+  --accent: #8B5CF6;
+  /* Purple */
+  --accent-pink: #EC4899;
+  --accent-amber: #F59E0B;
+  --accent-lime: #84CC16;
+  /* Gradients - Futuristic */
+  --gradient-primary: linear-gradient(135deg, #0066FF 0%, #00D4AA 100%);
+  --gradient-secondary: linear-gradient(135deg, #00D4AA 0%, #00AA88 100%);
+  --gradient-sunset: linear-gradient(135deg, #0066FF 0%, #3395FF 50%, #00D4AA 100%);
+  /* Reusing sunset var name but with blue/cyan */
+  --gradient-ocean: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+  --gradient-dark: linear-gradient(180deg, #0F172A 0%, #1E293B 100%);
+  --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  /* Gradients - Updated with new palettes */
+  /* ============================================
+       Note: Semantic & Accent colors are now updated variables above.
+       Removing duplicate/old definitions.
+       ============================================ */
   /* Typography */
   --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -3064,13 +3037,13 @@ a:hover {
 }
 
 .hover\:shadow-primary\/40:hover {
-  --tw-shadow-color: rgb(255 159 28 / 0.4);
+  --tw-shadow-color: rgb(0 102 255 / 0.4);
   --tw-shadow: var(--tw-shadow-colored);
 }
 
 .focus\:border-primary:focus {
   --tw-border-opacity: 1;
-  border-color: rgb(255 159 28 / var(--tw-border-opacity, 1));
+  border-color: rgb(0 102 255 / var(--tw-border-opacity, 1));
 }
 
 .focus\:outline-none:focus {
@@ -3085,7 +3058,7 @@ a:hover {
 }
 
 .focus\:ring-primary\/15:focus {
-  --tw-ring-color: rgb(255 159 28 / 0.15);
+  --tw-ring-color: rgb(0 102 255 / 0.15);
 }
 
 @media (min-width: 768px) {
