@@ -394,25 +394,35 @@ document.addEventListener('DOMContentLoaded', () => {
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
         // Simple mock response logic - In a real app, this would call an API
-        setTimeout(() => {
+        try {
+            // Call n8n Webhook
+            const response = await fetch(N8N_WEBHOOK_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: text,
+                    // Optional: Send location or context if available
+                    timestamp: new Date().toISOString()
+                })
+            });
+
+            if (!response.ok) throw new Error('Network response was not ok');
+
+            const data = await response.json();
             loadingDiv.remove();
-            let response = "I'm searching for the best food trucks for you... 🚚";
-            const lowerText = text.toLowerCase();
 
-            if (lowerText.includes('burger')) {
-                response = "I found some great burger spots! check out 'Burger King' or 'The Patty Wagon'.";
-            } else if (lowerText.includes('taco') || lowerText.includes('mexican')) {
-                response = "Tacos coming right up! 'Taco Bout It' is highly rated nearby.";
-            } else if (lowerText.includes('pizza') || lowerText.includes('italian')) {
-                response = "Pizza sounds great! 'Slice of Heaven' is open and close by.";
-            } else if (lowerText.includes('hello') || lowerText.includes('hi')) {
-                response = "Hi there! What are you in the mood for today?";
-            } else {
-                response = "That sounds delicious! You can use the search bar to find trucks serving that, or let me know a specific cuisine!";
-            }
+            // Extract response text from n8n JSON output
+            // Expecting format: { "response": "Hello..." }
+            const botReply = data.response || "I found some info but I'm not sure how to say it! 🤖";
+            addMessage(botReply, false);
 
-            addMessage(response, false);
-        }, 1000);
+        } catch (error) {
+            console.error('Chatbot Error:', error);
+            loadingDiv.remove();
+            addMessage("I'm having a bit of connection trouble. Please try again in a moment! 📡", false);
+        }
     }
 
     if (sendBtn) sendBtn.addEventListener('click', handleSend);

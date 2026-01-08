@@ -3,6 +3,7 @@
 // ============================================
 
 const API_BASE_URL = window.location.origin + '/api';
+const N8N_WEBHOOK_URL = 'http://localhost:5678/webhook/chat';
 
 const API_ENDPOINTS = {
     // Auth

@@ -1,0 +1,147 @@
+{
+    "name": "Food Truck Chatbot",
+    "nodes": [
+        {
+            "parameters": {
+                "httpMethod": "POST",
+                "path": "chat",
+                "options": {}
+            },
+            "name": "Webhook",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1,
+            "position": [
+                250,
+                300
+            ],
+            "webhookId": "chat"
+        },
+        {
+            "parameters": {
+                "dataType": "string",
+                "value1": "={{ $json[\"message\"].toLowerCase() }}",
+                "rules": {
+                    "rules": [
+                        {
+                            "value2": "burger",
+                            "output": 0
+                        },
+                        {
+                            "value2": "taco",
+                            "output": 1
+                        },
+                        {
+                            "value2": "pizza",
+                            "output": 2
+                        }
+                    ]
+                },
+                "fallbackOutput": 3
+            },
+            "name": "Switch",
+            "type": "n8n-nodes-base.switch",
+            "typeVersion": 1,
+            "position": [
+                450,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "respondWith": "json",
+                "responseBody": "{\n  \"response\": \"I found some great burger spots! Check out 'Burger King' or 'The Patty Wagon'. 🍔\"\n}"
+            },
+            "name": "Burger Response",
+            "type": "n8n-nodes-base.respondToWebhook",
+            "typeVersion": 1,
+            "position": [
+                700,
+                100
+            ]
+        },
+        {
+            "parameters": {
+                "respondWith": "json",
+                "responseBody": "{\n  \"response\": \"Tacos coming right up! 'Taco Bout It' is highly rated nearby. 🌮\"\n}"
+            },
+            "name": "Taco Response",
+            "type": "n8n-nodes-base.respondToWebhook",
+            "typeVersion": 1,
+            "position": [
+                700,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "respondWith": "json",
+                "responseBody": "{\n  \"response\": \"Pizza sounds great! 'Slice of Heaven' is open and close by. 🍕\"\n}"
+            },
+            "name": "Pizza Response",
+            "type": "n8n-nodes-base.respondToWebhook",
+            "typeVersion": 1,
+            "position": [
+                700,
+                500
+            ]
+        },
+        {
+            "parameters": {
+                "respondWith": "json",
+                "responseBody": "{\n  \"response\": \"That sounds delicious! Use the search bar for specific cuisines, or ask me about burgers, tacos, or pizza!\"\n}"
+            },
+            "name": "Default Response",
+            "type": "n8n-nodes-base.respondToWebhook",
+            "typeVersion": 1,
+            "position": [
+                700,
+                700
+            ]
+        }
+    ],
+    "connections": {
+        "Webhook": {
+            "main": [
+                [
+                    {
+                        "node": "Switch",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Switch": {
+            "main": [
+                [
+                    {
+                        "node": "Burger Response",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Taco Response",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Pizza Response",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Default Response",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}
