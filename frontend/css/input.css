@@ -391,18 +391,16 @@ a:hover {
     top: calc(100% + var(--spacing-sm));
     right: 0;
     min-width: 260px;
-    background: rgba(30, 35, 50, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: #FFFFFF;
+    border: 1px solid var(--border);
     border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-2xl);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
     padding: var(--spacing-md);
     opacity: 0;
     visibility: hidden;
     transform: translateY(-10px);
     transition: all var(--transition-base);
     z-index: var(--z-dropdown);
-    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .user-menu:hover .user-dropdown {
@@ -417,18 +415,18 @@ a:hover {
 
 .user-name {
     font-weight: 600;
-    color: var(--white);
+    color: var(--gray-900);
     font-size: 1rem;
 }
 
 .user-email {
     font-size: 0.875rem;
-    color: var(--gray-300);
+    color: var(--gray-500);
 }
 
 .dropdown-divider {
     height: 1px;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--border);
     margin: var(--spacing-sm) 0;
 }
 
@@ -440,7 +438,7 @@ a:hover {
     padding: var(--spacing-sm) var(--spacing-md);
     border: none;
     background: transparent;
-    color: var(--gray-300);
+    color: var(--gray-700);
     font-size: 0.9375rem;
     border-radius: var(--radius-md);
     cursor: pointer;
@@ -448,8 +446,8 @@ a:hover {
 }
 
 .dropdown-item:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--white);
+    background: var(--gray-100);
+    color: var(--primary);
 }
 
 /* ============================================
@@ -1394,16 +1392,15 @@ a:hover {
     position: relative;
     width: 90%;
     max-width: 480px;
-    background: rgba(30, 35, 50, 0.85);
-    /* Darker glass for better text readability */
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: #FFFFFF;
+    /* Light Mode Modal */
     border-radius: var(--radius-2xl);
-    box-shadow: var(--shadow-2xl);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
     animation: slideUp 0.3s ease-out;
     max-height: 90vh;
     overflow-y: auto;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border);
+    color: var(--gray-800);
 }
 
 @keyframes slideUp {
@@ -1425,9 +1422,9 @@ a:hover {
     width: 36px;
     height: 36px;
     border-radius: var(--radius-full);
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--gray-100);
     border: none;
-    color: var(--white);
+    color: var(--gray-600);
     display: flex;
     align-items: center;
     justify-content: center;
