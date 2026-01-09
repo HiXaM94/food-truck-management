@@ -1277,7 +1277,7 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 0;
+  padding: 0 !important;
 }
 
 .nav-brand {
@@ -1290,10 +1290,20 @@ a:hover {
   color: var(--gray-800);
   cursor: pointer;
   transition: transform var(--transition-fast);
+  padding: 0.5rem 0;
 }
 
 .nav-brand:hover {
   transform: scale(1.02);
+}
+
+.logo-icon {
+  filter: drop-shadow(0 2px 4px rgba(0, 102, 255, 0.3));
+  transition: all var(--transition-fast);
+}
+
+.nav-brand:hover .logo-icon {
+  filter: drop-shadow(0 4px 8px rgba(0, 102, 255, 0.5));
 }
 
 .nav-brand i {
@@ -1956,41 +1966,38 @@ a:hover {
   background: #FFFFFF !important;
   /* Force white */
   border: 1px solid var(--border);
-  color: var(--gray-800);
-  padding: 0.75rem 1rem;
+  color: var(--gray-800) !important;
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
   border-radius: 12px;
   font-size: 0.95rem;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
   box-shadow: var(--shadow-sm);
   appearance: none;
-  /* Remove default arrow to style cleaner if needed, but keeping simple for now */
   -webkit-appearance: none;
   -moz-appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748B'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 1rem center;
   background-size: 1.25em;
-  transform-origin: top;
 }
 
-.filter-select:active {
-  transform: scale(0.98);
+.filter-select:hover {
+  border-color: var(--primary);
 }
 
 .filter-select option {
-  background: #FFFFFF;
-  color: var(--gray-800);
+  background: #FFFFFF !important;
+  color: var(--gray-800) !important;
   padding: 10px;
-  transition: all 0.2s ease;
 }
 
-.filter-select:focus {
+.filter-select:focus,
+.filter-select:active {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.1);
+  box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
   background-color: #FFFFFF !important;
-  transform: translateY(-1px);
 }
 
 /* Truck Status (Keeping existing but ensuring text contrast) */
