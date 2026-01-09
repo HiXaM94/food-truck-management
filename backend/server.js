@@ -123,4 +123,7 @@ if (require.main === module) {
     startServer();
 }
 
-module.exports = { app, startServer };
+// Attach startServer to app so it can be used by Electron
+app.startServer = startServer;
+
+module.exports = app;

@@ -1,6 +1,7 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
-const { startServer } = require('./backend/server.js');
+const serverApp = require('./backend/server.js');
+const startServer = serverApp.startServer;
 
 function createWindow() {
     const win = new BrowserWindow({
