@@ -1034,10 +1034,10 @@ video {
   /* Bright Yellow */
   /* UI Palette */
   --surface: #FFFFFF;
-  --card: #FFF8F1;
-  /* Very subtle warm tint */
-  --border: #FEEBC8;
-  /* Warm beige border */
+  --card: #FFFFFF;
+  /* Clean White */
+  --border: #FFE4CC;
+  /* Subtle Orange Tint Border */
   /* Semantic Colors */
   --success: #10B981;
   --warning: #F59E0B;
@@ -1121,7 +1121,7 @@ html {
 body {
   font-family: var(--font-primary);
   /* Light Theme for Citrus Burst */
-  background: var(--gray-50);
+  background: #FFFBF7;
   color: var(--gray-800);
   line-height: 1.6;
   min-height: 100vh;
