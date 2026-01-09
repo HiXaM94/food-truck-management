@@ -1,4 +1,6 @@
-*, ::before, ::after {
+*,
+::before,
+::after {
   --tw-border-spacing-x: 0;
   --tw-border-spacing-y: 0;
   --tw-translate-x: 0;
@@ -8,19 +10,19 @@
   --tw-skew-y: 0;
   --tw-scale-x: 1;
   --tw-scale-y: 1;
-  --tw-pan-x:  ;
-  --tw-pan-y:  ;
-  --tw-pinch-zoom:  ;
+  --tw-pan-x: ;
+  --tw-pan-y: ;
+  --tw-pinch-zoom: ;
   --tw-scroll-snap-strictness: proximity;
-  --tw-gradient-from-position:  ;
-  --tw-gradient-via-position:  ;
-  --tw-gradient-to-position:  ;
-  --tw-ordinal:  ;
-  --tw-slashed-zero:  ;
-  --tw-numeric-figure:  ;
-  --tw-numeric-spacing:  ;
-  --tw-numeric-fraction:  ;
-  --tw-ring-inset:  ;
+  --tw-gradient-from-position: ;
+  --tw-gradient-via-position: ;
+  --tw-gradient-to-position: ;
+  --tw-ordinal: ;
+  --tw-slashed-zero: ;
+  --tw-numeric-figure: ;
+  --tw-numeric-spacing: ;
+  --tw-numeric-fraction: ;
+  --tw-ring-inset: ;
   --tw-ring-offset-width: 0px;
   --tw-ring-offset-color: #fff;
   --tw-ring-color: rgb(59 130 246 / 0.5);
@@ -28,28 +30,28 @@
   --tw-ring-shadow: 0 0 #0000;
   --tw-shadow: 0 0 #0000;
   --tw-shadow-colored: 0 0 #0000;
-  --tw-blur:  ;
-  --tw-brightness:  ;
-  --tw-contrast:  ;
-  --tw-grayscale:  ;
-  --tw-hue-rotate:  ;
-  --tw-invert:  ;
-  --tw-saturate:  ;
-  --tw-sepia:  ;
-  --tw-drop-shadow:  ;
-  --tw-backdrop-blur:  ;
-  --tw-backdrop-brightness:  ;
-  --tw-backdrop-contrast:  ;
-  --tw-backdrop-grayscale:  ;
-  --tw-backdrop-hue-rotate:  ;
-  --tw-backdrop-invert:  ;
-  --tw-backdrop-opacity:  ;
-  --tw-backdrop-saturate:  ;
-  --tw-backdrop-sepia:  ;
-  --tw-contain-size:  ;
-  --tw-contain-layout:  ;
-  --tw-contain-paint:  ;
-  --tw-contain-style:  ;
+  --tw-blur: ;
+  --tw-brightness: ;
+  --tw-contrast: ;
+  --tw-grayscale: ;
+  --tw-hue-rotate: ;
+  --tw-invert: ;
+  --tw-saturate: ;
+  --tw-sepia: ;
+  --tw-drop-shadow: ;
+  --tw-backdrop-blur: ;
+  --tw-backdrop-brightness: ;
+  --tw-backdrop-contrast: ;
+  --tw-backdrop-grayscale: ;
+  --tw-backdrop-hue-rotate: ;
+  --tw-backdrop-invert: ;
+  --tw-backdrop-opacity: ;
+  --tw-backdrop-saturate: ;
+  --tw-backdrop-sepia: ;
+  --tw-contain-size: ;
+  --tw-contain-layout: ;
+  --tw-contain-paint: ;
+  --tw-contain-style: ;
 }
 
 ::backdrop {
@@ -62,19 +64,19 @@
   --tw-skew-y: 0;
   --tw-scale-x: 1;
   --tw-scale-y: 1;
-  --tw-pan-x:  ;
-  --tw-pan-y:  ;
-  --tw-pinch-zoom:  ;
+  --tw-pan-x: ;
+  --tw-pan-y: ;
+  --tw-pinch-zoom: ;
   --tw-scroll-snap-strictness: proximity;
-  --tw-gradient-from-position:  ;
-  --tw-gradient-via-position:  ;
-  --tw-gradient-to-position:  ;
-  --tw-ordinal:  ;
-  --tw-slashed-zero:  ;
-  --tw-numeric-figure:  ;
-  --tw-numeric-spacing:  ;
-  --tw-numeric-fraction:  ;
-  --tw-ring-inset:  ;
+  --tw-gradient-from-position: ;
+  --tw-gradient-via-position: ;
+  --tw-gradient-to-position: ;
+  --tw-ordinal: ;
+  --tw-slashed-zero: ;
+  --tw-numeric-figure: ;
+  --tw-numeric-spacing: ;
+  --tw-numeric-fraction: ;
+  --tw-ring-inset: ;
   --tw-ring-offset-width: 0px;
   --tw-ring-offset-color: #fff;
   --tw-ring-color: rgb(59 130 246 / 0.5);
@@ -82,28 +84,28 @@
   --tw-ring-shadow: 0 0 #0000;
   --tw-shadow: 0 0 #0000;
   --tw-shadow-colored: 0 0 #0000;
-  --tw-blur:  ;
-  --tw-brightness:  ;
-  --tw-contrast:  ;
-  --tw-grayscale:  ;
-  --tw-hue-rotate:  ;
-  --tw-invert:  ;
-  --tw-saturate:  ;
-  --tw-sepia:  ;
-  --tw-drop-shadow:  ;
-  --tw-backdrop-blur:  ;
-  --tw-backdrop-brightness:  ;
-  --tw-backdrop-contrast:  ;
-  --tw-backdrop-grayscale:  ;
-  --tw-backdrop-hue-rotate:  ;
-  --tw-backdrop-invert:  ;
-  --tw-backdrop-opacity:  ;
-  --tw-backdrop-saturate:  ;
-  --tw-backdrop-sepia:  ;
-  --tw-contain-size:  ;
-  --tw-contain-layout:  ;
-  --tw-contain-paint:  ;
-  --tw-contain-style:  ;
+  --tw-blur: ;
+  --tw-brightness: ;
+  --tw-contrast: ;
+  --tw-grayscale: ;
+  --tw-hue-rotate: ;
+  --tw-invert: ;
+  --tw-saturate: ;
+  --tw-sepia: ;
+  --tw-drop-shadow: ;
+  --tw-backdrop-blur: ;
+  --tw-backdrop-brightness: ;
+  --tw-backdrop-contrast: ;
+  --tw-backdrop-grayscale: ;
+  --tw-backdrop-hue-rotate: ;
+  --tw-backdrop-invert: ;
+  --tw-backdrop-opacity: ;
+  --tw-backdrop-saturate: ;
+  --tw-backdrop-sepia: ;
+  --tw-contain-size: ;
+  --tw-contain-layout: ;
+  --tw-contain-paint: ;
+  --tw-contain-style: ;
 }
 
 /*
@@ -152,7 +154,7 @@ html,
   -moz-tab-size: 4;
   /* 3 */
   -o-tab-size: 4;
-     tab-size: 4;
+  tab-size: 4;
   /* 3 */
   font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   /* 4 */
@@ -197,7 +199,7 @@ Add the correct text decoration in Chrome, Edge, and Safari.
 
 abbr:where([title]) {
   -webkit-text-decoration: underline dotted;
-          text-decoration: underline dotted;
+  text-decoration: underline dotted;
 }
 
 /*
@@ -486,7 +488,8 @@ textarea {
 2. Set the default placeholder color to the user's configured gray 400 color.
 */
 
-input::-moz-placeholder, textarea::-moz-placeholder {
+input::-moz-placeholder,
+textarea::-moz-placeholder {
   opacity: 1;
   /* 1 */
   color: #94A3B8;
@@ -806,7 +809,7 @@ video {
 
 .bg-clip-text {
   -webkit-background-clip: text;
-          background-clip: text;
+  background-clip: text;
 }
 
 .p-2 {
@@ -1274,6 +1277,7 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0.5rem 0;
 }
 
 .nav-brand {
@@ -1301,8 +1305,9 @@ a:hover {
 }
 
 @keyframes pulse {
+
   0%,
-    100% {
+  100% {
     transform: scale(1);
   }
 
@@ -1313,6 +1318,7 @@ a:hover {
 
 .nav-menu {
   display: flex;
+  align-items: center;
   gap: 0.5rem;
   background: var(--surface);
   /* White background for mobile */
@@ -1620,8 +1626,9 @@ a:hover {
 }
 
 @keyframes shimmer {
+
   0%,
-    100% {
+  100% {
     filter: brightness(1);
   }
 
@@ -1876,7 +1883,7 @@ a:hover {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   transition: transform var(--transition-slow);
 }
 
@@ -1907,8 +1914,9 @@ a:hover {
 }
 
 @keyframes pulse-active {
+
   0%,
-    100% {
+  100% {
     box-shadow: 0 0 0 0 rgba(26, 147, 111, 0.7);
   }
 
@@ -1953,7 +1961,7 @@ a:hover {
   border-radius: 12px;
   font-size: 0.95rem;
   cursor: pointer;
-  transition: all var(--transition-base);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: var(--shadow-sm);
   appearance: none;
   /* Remove default arrow to style cleaner if needed, but keeping simple for now */
@@ -1963,12 +1971,18 @@ a:hover {
   background-repeat: no-repeat;
   background-position: right 1rem center;
   background-size: 1.25em;
+  transform-origin: top;
+}
+
+.filter-select:active {
+  transform: scale(0.98);
 }
 
 .filter-select option {
   background: #FFFFFF;
   color: var(--gray-800);
   padding: 10px;
+  transition: all 0.2s ease;
 }
 
 .filter-select:focus {
@@ -1976,6 +1990,7 @@ a:hover {
   border-color: var(--primary);
   box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.1);
   background-color: #FFFFFF !important;
+  transform: translateY(-1px);
 }
 
 /* Truck Status (Keeping existing but ensuring text contrast) */
@@ -2041,8 +2056,9 @@ a:hover {
 }
 
 @keyframes heartBeat {
+
   0%,
-    100% {
+  100% {
     transform: scale(1);
   }
 
@@ -2359,7 +2375,8 @@ a:hover {
   color: var(--white);
 }
 
-.form-group input::-moz-placeholder, .form-group textarea::-moz-placeholder {
+.form-group input::-moz-placeholder,
+.form-group textarea::-moz-placeholder {
   color: var(--gray-400);
 }
 
@@ -2600,12 +2617,12 @@ body.modal-open {
   /* Fix for iOS input zoom */
 
   input[type="text"],
-    input[type="email"],
-    input[type="password"],
-    input[type="number"],
-    input[type="url"],
-    select,
-    textarea {
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="url"],
+  select,
+  textarea {
     font-size: 16px !important;
     /* Prevents zoom on iOS */
   }
@@ -2613,7 +2630,7 @@ body.modal-open {
   /* Fix for iOS button styling */
 
   button,
-    .btn {
+  .btn {
     -webkit-appearance: none;
     -webkit-tap-highlight-color: transparent;
   }
@@ -2625,9 +2642,9 @@ body.modal-open {
   /* Larger touch targets for mobile */
 
   .btn,
-    .nav-link,
-    .favorite-btn,
-    .action-btn {
+  .nav-link,
+  .favorite-btn,
+  .action-btn {
     min-height: 44px;
     min-width: 44px;
   }
@@ -3006,8 +3023,8 @@ body.modal-open {
   /* Sharper borders and shadows */
 
   .truck-card,
-    .btn,
-    .form-container {
+  .btn,
+  .form-container {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -3022,9 +3039,10 @@ body.modal-open {
 /* Reduced Motion Support */
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
-    *::before,
-    *::after {
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -3034,12 +3052,13 @@ body.modal-open {
 /* Print Styles */
 
 @media print {
+
   .navbar,
-    .search-section,
-    .pagination,
-    .btn,
-    .favorite-btn,
-    .action-btn {
+  .search-section,
+  .pagination,
+  .btn,
+  .favorite-btn,
+  .action-btn {
     display: none !important;
   }
 
