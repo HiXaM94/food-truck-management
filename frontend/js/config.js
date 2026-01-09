@@ -2,7 +2,25 @@
 // CONFIGURATION
 // ============================================
 
-const API_BASE_URL = window.location.origin + '/api';
+const isNative = window.Capacitor && window.Capacitor.isNative;
+// Check if running in Electron (via user agent or window property)
+const isElectron = navigator.userAgent.toLowerCase().indexOf(' electron/') > -1;
+
+// Determine API Base URL
+let API_BASE_URL;
+
+if (isNative) {
+    // For Android Emulator, use 10.0.2.2. For real device, use your machine's LAN IP (e.g. http://192.168.1.X:3000)
+    // REPLACE THIS WITH YOUR REAL BACKEND URL FOR PRODUCTION
+    API_BASE_URL = 'http://10.0.2.2:3000/api';
+} else if (isElectron) {
+    // Electron runs the server locally on localhost:3000 (as we set in main.js)
+    API_BASE_URL = 'http://localhost:3000/api';
+} else {
+    // Web Browser
+    API_BASE_URL = window.location.origin + '/api';
+}
+
 const N8N_WEBHOOK_URL = 'https://n8n.zackdev.io/webhook/chat';
 
 const API_ENDPOINTS = {

@@ -123,4 +123,4 @@ if (require.main === module) {
     startServer();
 }
 
-module.exports = app;
+module.exports = { app, startServer };
