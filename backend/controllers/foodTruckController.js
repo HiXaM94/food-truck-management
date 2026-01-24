@@ -18,68 +18,62 @@ const getAllFoodTrucks = async (req, res) => {
 
         const offset = (page - 1) * limit;
 
-        // Build dynamic query
-        let sql = `
-            SELECT ft.*, u.username as creator_username,
-            (SELECT COUNT(*) FROM favorites WHERE food_truck_id = ft.id) as favorite_count
-            FROM food_trucks ft
-            LEFT JOIN users u ON ft.created_by = u.id
-            WHERE 1=1
-        `;
+        // Build WHERE clause
+        const conditions = ['1=1'];
         const params = [];
         let pIdx = 1;
 
-        // Add search filter
         if (search) {
-            sql += ` AND (ft.name ILIKE $${pIdx} OR ft.city ILIKE $${pIdx + 1} OR ft.current_location ILIKE $${pIdx + 2})`;
-            // Postgres ILIKE is case insensitive
-            const searchParam = `%${search}%`;
-            params.push(searchParam, searchParam, searchParam);
-            pIdx += 3;
+            conditions.push(`(ft.name ILIKE $${pIdx} OR ft.city ILIKE $${pIdx} OR ft.current_location ILIKE $${pIdx})`);
+            params.push(`%${search}%`);
+            pIdx++;
         }
 
-        // Add cuisine filter
         if (cuisine) {
-            sql += ` AND ft.cuisine = $${pIdx}`;
+            conditions.push(`ft.cuisine = $${pIdx}`);
             params.push(cuisine);
             pIdx++;
         }
 
-        // Add city filter
         if (city) {
-            sql += ` AND ft.city ILIKE $${pIdx}`;
+            conditions.push(`ft.city ILIKE $${pIdx}`);
             params.push(`%${city}%`);
             pIdx++;
         }
 
-        // Add status filter
         if (status) {
-            sql += ` AND ft.status = $${pIdx}`;
+            conditions.push(`ft.status = $${pIdx}`);
             params.push(status);
             pIdx++;
         }
 
-        // Get total count for pagination
-        // Basic replacement of SELECT part.
-        // Note: replace should be careful if we have multiple matching strings.
-        // We replace the main SELECT columns with COUNT(*).
-        const countSql = `SELECT COUNT(*) as total FROM food_trucks ft LEFT JOIN users u ON ft.created_by = u.id WHERE 1=1 ` + sql.substring(sql.indexOf('WHERE 1=1') + 9);
+        const whereClause = `WHERE ${conditions.join(' AND ')}`;
 
-        // Wait, my substring logic above duplicates the WHERE clause conditions if I am not careful, 
-        // but actually I just want to append the same conditions.
-        // Let's reconstruct countSql cleaner.
-        // The conditions are in 'sql' after 'WHERE 1=1'.
-        const whereClause = sql.substring(sql.indexOf('WHERE 1=1') + 9); // gets " AND ..."
-        const finalCountSql = `SELECT COUNT(*) as total FROM food_trucks ft WHERE 1=1 ${whereClause}`;
-
-        const countResult = await query(finalCountSql, params);
+        // Get total count
+        const countSql = `SELECT COUNT(*) as total FROM food_trucks ft ${whereClause}`;
+        const countResult = await query(countSql, params);
         const total = parseInt(countResult.rows[0].total);
 
-        // Add sorting and pagination
-        sql += ` ORDER BY ft.created_at DESC LIMIT $${pIdx} OFFSET $${pIdx + 1}`;
-        params.push(parseInt(limit), parseInt(offset));
+        // Get data with pagination
+        const dataParams = [...params];
 
-        const foodTrucks = await query(sql, params);
+        const limitIdx = pIdx++;
+        dataParams.push(parseInt(limit));
+
+        const offsetIdx = pIdx++;
+        dataParams.push(parseInt(offset));
+
+        const sql = `
+            SELECT ft.*, u.username as creator_username,
+            (SELECT COUNT(*) FROM favorites WHERE food_truck_id = ft.id) as favorite_count
+            FROM food_trucks ft
+            LEFT JOIN users u ON ft.created_by = u.id
+            ${whereClause}
+            ORDER BY ft.created_at DESC
+            LIMIT $${limitIdx} OFFSET $${offsetIdx}
+        `;
+
+        const foodTrucks = await query(sql, dataParams);
 
         // If user is authenticated, check which trucks are favorited
         if (req.user) {
@@ -109,7 +103,7 @@ const getAllFoodTrucks = async (req, res) => {
         console.error('Get all food trucks error:', error);
         res.status(500).json({
             success: false,
-            message: 'Server error'
+            message: 'Server error: ' + error.message
         });
     }
 };
